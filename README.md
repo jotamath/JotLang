@@ -107,7 +107,7 @@ Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICE
 
 ## 👥 Autores
 
-- Seu Nome - Desenvolvedor Principal
+- [João Matheus](https://linkedin.com/in/jotamath)  - Desenvolvedor Principal
 
 ## 🙏 Agradecimentos
 
