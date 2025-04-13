@@ -1,0 +1,35 @@
+main:
+  - title: "Documentação"
+    children:
+      - title: "Introdução"
+        url: /docs/getting-started/
+      - title: "Instalação"
+        url: /docs/installation/
+      - title: "Sintaxe"
+        url: /docs/syntax/
+      - title: "Templates"
+        url: /docs/templates/
+      - title: "API Reference"
+        url: /docs/api-reference/
+      - title: "Exemplos"
+        url: /docs/examples/
+      - title: "Guia de Contribuição"
+        url: /docs/contributing/
+
+  - title: "Recursos"
+    children:
+      - title: "Blog"
+        url: /blog/
+      - title: "Tutoriais"
+        url: /tutorials/
+      - title: "FAQ"
+        url: /faq/
+
+  - title: "Comunidade"
+    children:
+      - title: "GitHub"
+        url: https://github.com/jotamath/JotLang
+      - title: "Discord"
+        url: https://discord.gg/jotlang
+      - title: "Twitter"
+        url: https://twitter.com/jotlang 

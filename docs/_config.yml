@@ -5,8 +5,85 @@ url: "https://jotamath.github.io"
 
 # Build settings
 markdown: kramdown
-theme: just-the-docs
-remote_theme: pmarsceill/just-the-docs
+theme: minimal-mistakes-jekyll
+remote_theme: mmistakes/minimal-mistakes
+
+# Site author
+author:
+  name: "JotLang Team"
+  avatar: "/assets/images/bio-photo.jpg"
+  bio: "A melhor amiga do backend"
+  location: "Brasil"
+  email: "jotlang@github.com"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/jotamath/JotLang"
+
+# Site footer
+footer:
+  links:
+    - label: "GitHub"
+      icon: "fab fa-github"
+      url: "https://github.com/jotamath/JotLang"
+    - label: "Twitter"
+      icon: "fab fa-twitter"
+      url: "https://twitter.com/jotlang"
+    - label: "Discord"
+      icon: "fab fa-discord"
+      url: "https://discord.gg/jotlang"
+
+# Default configuration
+defaults:
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: "single"
+      author_profile: true
+      share: true
+      comments: false
+      sidebar:
+        nav: "docs"
+
+# Navigation
+navigation:
+  - title: "Documentação"
+    children:
+      - title: "Introdução"
+        url: /docs/getting-started/
+      - title: "Instalação"
+        url: /docs/installation/
+      - title: "Sintaxe"
+        url: /docs/syntax/
+      - title: "Templates"
+        url: /docs/templates/
+      - title: "API Reference"
+        url: /docs/api-reference/
+
+# Search
+search: true
+
+# Comments
+comments:
+  provider: "disqus"
+  disqus:
+    shortname: "jotlang"
+
+# Analytics
+analytics:
+  provider: "google"
+  google:
+    tracking_id: "UA-XXXXXXXXX-X"
+
+# SEO
+seo:
+  type: "Organization"
+  name: "JotLang"
+  description: "A melhor amiga do backend"
+  url: "https://jotamath.github.io/JotLang"
+  logo: "/assets/images/logo.png"
 
 # Aux links for the upper right navigation
 aux_links:
@@ -24,16 +101,6 @@ color_scheme: dark
 
 # Footer content
 footer_content: "Copyright &copy; 2024 JotLang. Distribuído sob a licença MIT."
-
-# Default front matter
-defaults:
-  -
-    scope:
-      path: ""
-      type: "pages"
-    values:
-      layout: "default"
-      search: true
 
 # Configurações de navegação
 nav_external_links:
