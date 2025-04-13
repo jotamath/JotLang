@@ -6,7 +6,7 @@ url: "https://jotamath.github.io"
 # Build settings
 markdown: kramdown
 theme: just-the-docs
-remote_theme: just-the-docs/docs
+remote_theme: pmarsceill/just-the-docs
 
 # Aux links for the upper right navigation
 aux_links:
@@ -37,8 +37,8 @@ defaults:
 
 # Configurações de navegação
 nav_external_links:
-  - title: Jot Lang no GitHub
-    url: https://github.com/seu-usuario/jotlang
+  - title: JotLang no GitHub
+    url: https://github.com/jotamath/JotLang
     hide_icon: false
 
 # Configurações de back to top
