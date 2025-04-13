@@ -24,7 +24,7 @@ JotLang é uma linguagem de programação moderna e expressiva que transpila par
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/JotLang.git
+git clone https://github.com/jotamath/JotLang.git
 cd JotLang
 ```
 
