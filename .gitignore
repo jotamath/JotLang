@@ -1,0 +1,69 @@
+# Arquivos de build
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Arquivos de IDE
+.vs/
+.idea/
+*.swp
+*.swo
+
+# Arquivos de pacotes
+packages/
+*.nupkg
+!nupkg/*.nupkg
+
+# Arquivos de log
+*.log
+logs/
+
+# Arquivos de ambiente
+.env
+.env.local
+.env.*.local
+appsettings.*.json
+!appsettings.json
+
+# Arquivos de cache
+.cache/
+*.cache
+
+# Arquivos de teste
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Arquivos de chaves e certificados
+*.pfx
+*.key
+*.pem
+*.crt
+
+# Arquivos de banco de dados
+*.mdf
+*.ldf
+*.sdf
+
+# Arquivos de backup
+*.bak
+*.tmp
+*.temp
+
+# Arquivos de documentação gerados
+_site/
+docs/_site/
+*.docx
+*.pdf
+
+# Arquivos de configuração local
+launchSettings.json
+!Properties/launchSettings.json 

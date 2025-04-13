@@ -1,26 +1,45 @@
-title: Jot Lang
-description: Uma linguagem de programação moderna baseada em C#
+title: JotLang
+description: A melhor amiga do backend
+baseurl: "/JotLang"
+url: "https://jotamath.github.io"
+
+# Build settings
+markdown: kramdown
 theme: just-the-docs
+remote_theme: just-the-docs/docs
 
-url: https://jotlang.github.io
-
+# Aux links for the upper right navigation
 aux_links:
-  "Jot Lang no GitHub":
-    - "//github.com/seu-usuario/jotlang"
+  "JotLang no GitHub":
+    - "//github.com/jotamath/JotLang"
 
-# Configurações do JustTheDocs
-color_scheme: dark
+# Enable or disable the site search
 search_enabled: true
+
+# Enable or disable heading anchors
 heading_anchors: true
+
+# Color scheme currently only supports "dark" or nil (default)
+color_scheme: dark
+
+# Footer content
+footer_content: "Copyright &copy; 2024 JotLang. Distribuído sob a licença MIT."
+
+# Default front matter
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+      search: true
 
 # Configurações de navegação
 nav_external_links:
   - title: Jot Lang no GitHub
     url: https://github.com/seu-usuario/jotlang
     hide_icon: false
-
-# Configurações de rodapé
-footer_content: "Copyright &copy; 2024 Jot Lang. Distribuído sob licença MIT."
 
 # Configurações de back to top
 back_to_top: true
