@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>JotLang.Tool</id>
+    <version>1.0.0</version>
+    <authors>Jotamath</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <projectUrl>https://github.com/jotamath/JotLang</projectUrl>
+    <description>Ferramenta de linha de comando para a linguagem JotLang</description>
+    <tags>language,compiler,dotnet,tool</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+    <repository type="git" url="https://github.com/jotamath/JotLang.git" commit="c94dfb010aef738c61beea6e4eca85f29d7db3af" />
+  </metadata>
+  <files>
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\obj\DotnetToolSettings.xml" target="tools\net9.0\any\DotnetToolSettings.xml" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Jot.Tool.dll" target="tools\net9.0\any\Jot.Tool.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Jot.Tool.deps.json" target="tools\net9.0\any\Jot.Tool.deps.json" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Jot.Tool.runtimeconfig.json" target="tools\net9.0\any\Jot.Tool.runtimeconfig.json" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Jot.Tool.pdb" target="tools\net9.0\any\Jot.Tool.pdb" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.AspNetCore.Authentication.JwtBearer.dll" target="tools\net9.0\any\Microsoft.AspNetCore.Authentication.JwtBearer.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.CodeAnalysis.dll" target="tools\net9.0\any\Microsoft.CodeAnalysis.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.CodeAnalysis.CSharp.dll" target="tools\net9.0\any\Microsoft.CodeAnalysis.CSharp.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.CodeAnalysis.CSharp.Scripting.dll" target="tools\net9.0\any\Microsoft.CodeAnalysis.CSharp.Scripting.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.CodeAnalysis.Scripting.dll" target="tools\net9.0\any\Microsoft.CodeAnalysis.Scripting.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.DotNet.PlatformAbstractions.dll" target="tools\net9.0\any\Microsoft.DotNet.PlatformAbstractions.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.EntityFrameworkCore.dll" target="tools\net9.0\any\Microsoft.EntityFrameworkCore.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.EntityFrameworkCore.Abstractions.dll" target="tools\net9.0\any\Microsoft.EntityFrameworkCore.Abstractions.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.Caching.Abstractions.dll" target="tools\net9.0\any\Microsoft.Extensions.Caching.Abstractions.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.Caching.Memory.dll" target="tools\net9.0\any\Microsoft.Extensions.Caching.Memory.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.DependencyInjection.dll" target="tools\net9.0\any\Microsoft.Extensions.DependencyInjection.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.DependencyInjection.Abstractions.dll" target="tools\net9.0\any\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.DependencyModel.dll" target="tools\net9.0\any\Microsoft.Extensions.DependencyModel.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.Logging.dll" target="tools\net9.0\any\Microsoft.Extensions.Logging.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.Logging.Abstractions.dll" target="tools\net9.0\any\Microsoft.Extensions.Logging.Abstractions.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.Options.dll" target="tools\net9.0\any\Microsoft.Extensions.Options.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.Extensions.Primitives.dll" target="tools\net9.0\any\Microsoft.Extensions.Primitives.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.IdentityModel.Abstractions.dll" target="tools\net9.0\any\Microsoft.IdentityModel.Abstractions.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.IdentityModel.JsonWebTokens.dll" target="tools\net9.0\any\Microsoft.IdentityModel.JsonWebTokens.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.IdentityModel.Logging.dll" target="tools\net9.0\any\Microsoft.IdentityModel.Logging.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.IdentityModel.Protocols.dll" target="tools\net9.0\any\Microsoft.IdentityModel.Protocols.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" target="tools\net9.0\any\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Microsoft.IdentityModel.Tokens.dll" target="tools\net9.0\any\Microsoft.IdentityModel.Tokens.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Newtonsoft.Json.dll" target="tools\net9.0\any\Newtonsoft.Json.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\System.IdentityModel.Tokens.Jwt.dll" target="tools\net9.0\any\System.IdentityModel.Tokens.Jwt.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Jot.dll" target="tools\net9.0\any\Jot.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\Jot.pdb" target="tools\net9.0\any\Jot.pdb" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\cs\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\cs\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\cs\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\cs\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\cs\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\cs\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\cs\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\cs\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\de\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\de\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\de\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\de\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\de\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\de\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\de\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\de\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\es\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\es\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\es\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\es\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\es\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\es\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\es\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\es\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\fr\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\fr\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\fr\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\fr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\fr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\fr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\fr\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\fr\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\it\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\it\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\it\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\it\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\it\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\it\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\it\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\it\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ja\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\ja\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ja\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\ja\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ja\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\ja\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ja\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\ja\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ko\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\ko\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ko\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\ko\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ko\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\ko\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ko\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\ko\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pl\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\pl\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pl\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\pl\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pl\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\pl\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pl\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\pl\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pt-BR\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\pt-BR\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\pt-BR\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pt-BR\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\pt-BR\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\pt-BR\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ru\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\ru\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ru\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\ru\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ru\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\ru\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\ru\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\ru\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\tr\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\tr\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\tr\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\tr\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\tr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\tr\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\tr\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\tr\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hans\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\zh-Hans\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\zh-Hans\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hans\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\zh-Hans\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\zh-Hans\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hant\Microsoft.CodeAnalysis.resources.dll" target="tools\net9.0\any\zh-Hant\Microsoft.CodeAnalysis.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll" target="tools\net9.0\any\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hant\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" target="tools\net9.0\any\zh-Hant\Microsoft.CodeAnalysis.CSharp.Scripting.resources.dll" />
+    <file src="C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot.Tool\bin\Release\net9.0\publish\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll" target="tools\net9.0\any\zh-Hant\Microsoft.CodeAnalysis.Scripting.resources.dll" />
+  </files>
+</package>

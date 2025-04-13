@@ -1,0 +1,118 @@
+import System
+import Microsoft.AspNetCore.Mvc
+import Microsoft.Extensions.Caching.Memory
+import System.ComponentModel.DataAnnotations
+
+module CacheApi
+
+    class Product {
+        prop int Id
+        prop string Name
+        prop decimal Price
+        prop int Stock
+    }
+
+    class ProductRequest {
+        [Required]
+        [StringLength(100)]
+        prop string Name
+
+        [Required]
+        [Range(0.01, 1000000)]
+        prop decimal Price
+
+        [Required]
+        [Range(0, 1000)]
+        prop int Stock
+    }
+
+    @api
+    @route("api/products")
+    class ProductController : ControllerBase {
+        prop IMemoryCache Cache
+        prop ILogger<ProductController> Logger
+
+        ctor(IMemoryCache cache, ILogger<ProductController> logger) {
+            Cache = cache
+            Logger = logger
+        }
+
+        @httpget
+        fn GetAll() {
+            var cacheKey = "products_all"
+            if Cache.TryGetValue(cacheKey, out list<Product> products) {
+                return Ok(products)
+            }
+
+            // Simula busca no banco
+            products = new list<Product> {
+                new Product { Id = 1, Name = "Produto 1", Price = 10.99m, Stock = 100 },
+                new Product { Id = 2, Name = "Produto 2", Price = 20.99m, Stock = 50 }
+            }
+
+            var cacheOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+                .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+
+            Cache.Set(cacheKey, products, cacheOptions)
+            return Ok(products)
+        }
+
+        @httpget("{id}")
+        fn GetById(int id) {
+            var cacheKey = $"product_{id}"
+            if Cache.TryGetValue(cacheKey, out Product product) {
+                return Ok(product)
+            }
+
+            // Simula busca no banco
+            product = new Product { Id = id, Name = $"Produto {id}", Price = 10.99m, Stock = 100 }
+            
+            var cacheOptions = new MemoryCacheEntryOptions()
+                .SetSlidingExpiration(TimeSpan.FromMinutes(5))
+                .SetAbsoluteExpiration(TimeSpan.FromHours(1))
+
+            Cache.Set(cacheKey, product, cacheOptions)
+            return Ok(product)
+        }
+
+        @httppost
+        fn Create(ProductRequest request) {
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState)
+            }
+
+            var product = new Product {
+                Id = 999, // Simula geração de ID
+                Name = request.Name,
+                Price = request.Price,
+                Stock = request.Stock
+            }
+
+            // Invalida cache
+            Cache.Remove("products_all")
+            
+            return CreatedAtAction(nameof(GetById), new { id = product.Id }, product)
+        }
+
+        @httpput("{id}")
+        fn Update(int id, ProductRequest request) {
+            if (!ModelState.IsValid) {
+                return BadRequest(ModelState)
+            }
+
+            // Simula atualização
+            var product = new Product {
+                Id = id,
+                Name = request.Name,
+                Price = request.Price,
+                Stock = request.Stock
+            }
+
+            // Invalida caches
+            Cache.Remove("products_all")
+            Cache.Remove($"product_{id}")
+
+            return NoContent()
+        }
+    } 

@@ -1,0 +1,27 @@
+title: Jot Lang
+description: Uma linguagem de programação moderna baseada em C#
+theme: just-the-docs
+
+url: https://jotlang.github.io
+
+aux_links:
+  "Jot Lang no GitHub":
+    - "//github.com/seu-usuario/jotlang"
+
+# Configurações do JustTheDocs
+color_scheme: dark
+search_enabled: true
+heading_anchors: true
+
+# Configurações de navegação
+nav_external_links:
+  - title: Jot Lang no GitHub
+    url: https://github.com/seu-usuario/jotlang
+    hide_icon: false
+
+# Configurações de rodapé
+footer_content: "Copyright &copy; 2024 Jot Lang. Distribuído sob licença MIT."
+
+# Configurações de back to top
+back_to_top: true
+back_to_top_text: "Voltar ao topo" 

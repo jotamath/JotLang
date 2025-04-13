@@ -1,0 +1,115 @@
+module MinhaAPI
+
+import Microsoft.AspNetCore.Builder
+import Microsoft.Extensions.DependencyInjection
+import Microsoft.Extensions.Hosting
+import Microsoft.Extensions.Configuration
+import Microsoft.EntityFrameworkCore
+import Microsoft.OpenApi.Models
+import System.Text
+import Microsoft.AspNetCore.Authentication.JwtBearer
+import Microsoft.IdentityModel.Tokens
+
+class Program {
+    fn Main(args: string[]) => void {
+        let builder = WebApplication.CreateBuilder(args)
+        
+        // Configuração de Serviços
+        ConfigureServices(builder.Services, builder.Configuration)
+        
+        let app = builder.Build()
+        
+        // Configuração do Pipeline
+        ConfigurePipeline(app)
+        
+        app.Run()
+    }
+    
+    fn ConfigureServices(services: IServiceCollection, config: IConfiguration) => void {
+        // Configuração do DbContext
+        services.AddDbContext<ApplicationDbContext>(options => {
+            options.UseSqlServer(config.GetConnectionString("DefaultConnection"))
+        })
+        
+        // Configuração do CORS
+        services.AddCors(options => {
+            options.AddPolicy("AllowSpecificOrigins", policy => {
+                policy.WithOrigins(config.GetSection("Cors:AllowedOrigins").Get<string[]>())
+                      .AllowAnyHeader()
+                      .AllowAnyMethod()
+            })
+        })
+        
+        // Configuração do JWT
+        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = TokenValidationParameters {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = config["Jwt:Issuer"],
+                        ValidAudience = config["Jwt:Audience"],
+                        IssuerSigningKey = SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(config["Jwt:Key"])
+                        )
+                    }
+                })
+        
+        // Configuração do Swagger
+        services.AddEndpointsApiExplorer()
+        services.AddSwaggerGen(c => {
+            c.SwaggerDoc("v1", OpenApiInfo {
+                Title = "MinhaAPI",
+                Version = "v1"
+            })
+        })
+        
+        // Configuração de Controllers
+        services.AddControllers()
+    }
+    
+    fn ConfigurePipeline(app: WebApplication) => void {
+        if (app.Environment.IsDevelopment()) {
+            app.UseSwagger()
+            app.UseSwaggerUI()
+        }
+        
+        app.UseHttpsRedirection()
+        app.UseCors("AllowSpecificOrigins")
+        app.UseAuthentication()
+        app.UseAuthorization()
+        
+        app.MapControllers()
+    }
+}
+
+// Exemplo de Controller
+@api
+@route("api/[controller]")
+class WeatherForecastController {
+    @httpget
+    fn Get() => List<WeatherForecast> {
+        return [
+            WeatherForecast {
+                Date = DateTime.Now,
+                TemperatureC = 20,
+                Summary = "Ensolarado"
+            }
+        ]
+    }
+}
+
+class WeatherForecast {
+    prop Date: DateTime
+    prop TemperatureC: int
+    prop Summary: string
+}
+
+// Exemplo de DbContext
+class ApplicationDbContext : DbContext {
+    fn constructor(options: DbContextOptions<ApplicationDbContext>) : base(options) {}
+    
+    // Adicione seus DbSets aqui
+    // prop Users: DbSet<User>
+}

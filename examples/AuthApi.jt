@@ -1,0 +1,129 @@
+import System
+import Microsoft.AspNetCore.Mvc
+import Microsoft.AspNetCore.Authorization
+import Microsoft.IdentityModel.Tokens
+import System.IdentityModel.Tokens.Jwt
+import System.Security.Claims
+
+module AuthApi
+
+    @auth {
+        prop jwtSecret: string = env("JWT_SECRET")
+        prop jwtExpiration: int = 3600
+    }
+
+    @dto LoginDTO {
+        prop email: string @required @email
+        prop senha: string @required @min(8)
+    }
+
+    @dto AuthResponseDTO {
+        prop token: string
+        prop usuario: UsuarioDTO
+    }
+
+    @entity Usuario {
+        prop id: guid
+        prop nome: string
+        prop email: string
+        prop senhaHash: string
+        prop roles: List<Role> @manyToMany
+    }
+
+    @dto UsuarioDTO {
+        prop id: guid
+        prop nome: string
+        prop email: string
+    }
+
+    @entity Role {
+        prop id: guid
+        prop nome: string
+        prop permissoes: List<Permissao> @manyToMany
+    }
+
+    @entity Permissao {
+        prop id: guid
+        prop nome: string
+    }
+
+    @api
+    @route("api/auth")
+    class AuthController : ControllerBase {
+        prop IConfiguration Config
+        prop ILogger<AuthController> Logger
+
+        ctor(IConfiguration config, ILogger<AuthController> logger) {
+            Config = config
+            Logger = logger
+        }
+
+        @httppost("login")
+        fn Login(credentials: LoginDTO) => AuthResponseDTO {
+            var usuario = db.Usuarios
+                .First(u => u.Email == credentials.email)
+            
+            if (!VerifyPassword(credentials.senha, usuario.SenhaHash)) {
+                throw new UnauthorizedException("Credenciais inválidas")
+            }
+            
+            var token = GenerateJwtToken(usuario)
+            
+            return new AuthResponseDTO {
+                token = token,
+                usuario = new UsuarioDTO(usuario)
+            }
+        }
+
+        fn GenerateJwtToken(Usuario usuario) {
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config["Jwt:Key"]))
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
+            
+            var claims = new list<Claim> {
+                new Claim(ClaimTypes.Name, usuario.Email),
+                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString())
+            }
+            
+            foreach role in usuario.roles {
+                claims.Add(new Claim(ClaimTypes.Role, role.nome))
+            }
+            
+            var token = new JwtSecurityToken(
+                issuer: Config["Jwt:Issuer"],
+                audience: Config["Jwt:Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddHours(1),
+                signingCredentials: credentials
+            )
+            
+            return new JwtSecurityTokenHandler().WriteToken(token)
+        }
+
+        @httpget("/api/usuarios")
+        @authorize(roles: ["Admin"])
+        fn GetUsuarios() => List<UsuarioDTO> {
+            return db.Usuarios
+                .Select(u => new UsuarioDTO(u))
+                .ToList()
+        }
+
+        @httpget("/api/perfil")
+        @authorize
+        fn GetPerfil() => UsuarioDTO {
+            var userId = GetCurrentUserId()
+            var usuario = db.Usuarios.Find(userId)
+            return new UsuarioDTO(usuario)
+        }
+    }
+
+    @api
+    @route("api/protected")
+    class ProtectedController : ControllerBase {
+        @httpget
+        @authorize
+        fn GetProtectedData() => Ok("Dados protegidos")
+
+        @httpget("admin")
+        @authorize("Admin")
+        fn GetAdminData() => Ok("Dados de administrador")
+    } 

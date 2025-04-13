@@ -1,0 +1,75 @@
+import System
+import Microsoft.AspNetCore.Mvc
+import Microsoft.EntityFrameworkCore
+
+module TodoApi
+
+    class Todo {
+        prop int Id
+        prop string Title
+        prop bool IsComplete
+        prop DateTime CreatedAt
+    }
+
+    class TodoContext : DbContext {
+        prop DbSet<Todo> Todos
+
+        fn OnModelCreating(ModelBuilder builder) {
+            builder.Entity<Todo>()
+                .HasKey(t => t.Id)
+                .HasIndex(t => t.Title);
+        }
+    }
+
+    @api
+    @route("api/todos")
+    class TodoController : ControllerBase {
+        prop TodoContext Db
+        prop ILogger<TodoController> Logger
+
+        ctor(TodoContext db, ILogger<TodoController> logger) {
+            Db = db
+            Logger = logger
+        }
+
+        @httpget
+        fn GetAll() => Ok(Db.Todos.ToList())
+
+        @httpget("{id}")
+        fn GetById(int id) {
+            var todo = Db.Todos.Find(id)
+            if todo == null {
+                return NotFound()
+            }
+            return Ok(todo)
+        }
+
+        @httppost
+        fn Create(Todo todo) {
+            todo.CreatedAt = DateTime.Now
+            Db.Todos.Add(todo)
+            Db.SaveChanges()
+            return CreatedAtAction(nameof(GetById), new { id = todo.Id }, todo)
+        }
+
+        @httpput("{id}")
+        fn Update(int id, Todo todo) {
+            if id != todo.Id {
+                return BadRequest()
+            }
+            Db.Entry(todo).State = EntityState.Modified
+            Db.SaveChanges()
+            return NoContent()
+        }
+
+        @httpdelete("{id}")
+        fn Delete(int id) {
+            var todo = Db.Todos.Find(id)
+            if todo == null {
+                return NotFound()
+            }
+            Db.Todos.Remove(todo)
+            Db.SaveChanges()
+            return NoContent()
+        }
+    } 

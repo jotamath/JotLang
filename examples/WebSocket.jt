@@ -1,0 +1,56 @@
+@entity Mensagem {
+    prop id: guid
+    prop texto: string
+    prop usuario: string
+    prop dataEnvio: datetime
+}
+
+@dto MensagemDTO {
+    prop id: guid
+    prop texto: string @required
+    prop usuario: string @required
+    prop dataEnvio: datetime
+}
+
+@websocket("/chat")
+class ChatHub {
+    fn OnConnect(string usuario) {
+        print($"Usuário {usuario} conectou")
+        BroadcastMessage("Sistema", $"{usuario} entrou no chat")
+    }
+    
+    fn OnDisconnect(string usuario) {
+        print($"Usuário {usuario} desconectou")
+        BroadcastMessage("Sistema", $"{usuario} saiu do chat")
+    }
+    
+    fn OnMessage(string usuario, string mensagem) {
+        var novaMensagem = new Mensagem {
+            Texto = mensagem,
+            Usuario = usuario,
+            DataEnvio = DateTime.Now
+        }
+        
+        db.Mensagens.Add(novaMensagem)
+        db.SaveChanges()
+        
+        BroadcastMessage(usuario, mensagem)
+    }
+    
+    fn BroadcastMessage(string usuario, string mensagem) {
+        Clients.All.SendAsync("ReceiveMessage", new {
+            Usuario = usuario,
+            Mensagem = mensagem,
+            DataEnvio = DateTime.Now
+        })
+    }
+    
+    @httpGet("/api/mensagens")
+    fn GetMensagens() => List<MensagemDTO> {
+        return db.Mensagens
+            .OrderByDescending(m => m.DataEnvio)
+            .Take(50)
+            .Select(m => new MensagemDTO(m))
+            .ToList()
+    }
+} 

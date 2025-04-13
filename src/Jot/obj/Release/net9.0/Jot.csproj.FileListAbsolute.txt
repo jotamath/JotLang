@@ -1,0 +1,13 @@
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\bin\Release\net9.0\Jot.deps.json
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\bin\Release\net9.0\Jot.dll
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\bin\Release\net9.0\Jot.pdb
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.csproj.AssemblyReference.cache
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.AssemblyInfoInputs.cache
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.AssemblyInfo.cs
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.csproj.CoreCompileInputs.cache
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.sourcelink.json
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.dll
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\refint\Jot.dll
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\Jot.pdb
+C:\Users\flutu\Desktop\PROJETOS\1-C#\JotLang\src\Jot\obj\Release\net9.0\ref\Jot.dll

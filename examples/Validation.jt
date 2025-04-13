@@ -1,0 +1,92 @@
+@dto EnderecoDTO {
+    prop cep: string @required @pattern("^\\d{5}-\\d{3}$")
+    prop rua: string @required @min(3)
+    prop numero: string @required
+    prop complemento: string
+    prop bairro: string @required
+    prop cidade: string @required
+    prop estado: string @required @length(2)
+}
+
+@dto ClienteDTO {
+    prop id: guid
+    prop nome: string @required @min(3)
+    prop email: string @required @email
+    prop cpf: string @required @pattern("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$")
+    prop telefone: string @required @phone
+    prop dataNascimento: datetime @required
+    prop endereco: EnderecoDTO @required
+}
+
+@validator CpfValidator {
+    fn Validate(string cpf) => bool {
+        if (string.IsNullOrEmpty(cpf)) {
+            return false
+        }
+        
+        cpf = cpf.Replace(".", "").Replace("-", "")
+        
+        if (cpf.Length != 11) {
+            return false
+        }
+        
+        if (cpf.Distinct().Count() == 1) {
+            return false
+        }
+        
+        var soma = 0
+        for (var i = 0; i < 9; i++) {
+            soma += int.Parse(cpf[i].ToString()) * (10 - i)
+        }
+        
+        var resto = soma % 11
+        var digito1 = resto < 2 ? 0 : 11 - resto
+        
+        if (int.Parse(cpf[9].ToString()) != digito1) {
+            return false
+        }
+        
+        soma = 0
+        for (var i = 0; i < 10; i++) {
+            soma += int.Parse(cpf[i].ToString()) * (11 - i)
+        }
+        
+        resto = soma % 11
+        var digito2 = resto < 2 ? 0 : 11 - resto
+        
+        return int.Parse(cpf[10].ToString()) == digito2
+    }
+}
+
+@validator IdadeValidator {
+    fn Validate(datetime dataNascimento) => bool {
+        var idade = DateTime.Now.Year - dataNascimento.Year
+        if (DateTime.Now.DayOfYear < dataNascimento.DayOfYear) {
+            idade--
+        }
+        return idade >= 18
+    }
+}
+
+@httpPost("/api/clientes")
+fn CreateCliente(ClienteDTO cliente) => ClienteDTO {
+    if (!cliente.IsValid()) {
+        throw new ValidationException("Dados inválidos")
+    }
+    
+    var cpfValidator = new CpfValidator()
+    if (!cpfValidator.Validate(cliente.Cpf)) {
+        throw new ValidationException("CPF inválido")
+    }
+    
+    var idadeValidator = new IdadeValidator()
+    if (!idadeValidator.Validate(cliente.DataNascimento)) {
+        throw new ValidationException("Cliente deve ser maior de idade")
+    }
+    
+    var novoCliente = new Cliente(cliente)
+    db.Clientes.Add(novoCliente)
+    db.SaveChanges()
+    
+    return new ClienteDTO(novoCliente)
+} 
