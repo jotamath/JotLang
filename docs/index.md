@@ -1,76 +1,58 @@
 ---
-layout: home
-title: Início
-nav_order: 1
+layout: default
+title: JotLang - A melhor amiga do backend
 ---
 
-# Jot Lang
+# 🚀 Bem-vindo ao JotLang
 
-Jot é uma linguagem de programação moderna baseada em C#, projetada para ser simples, expressiva e produtiva.
+JotLang é uma linguagem de programação moderna e elegante projetada para desenvolvimento backend. Com uma sintaxe limpa e recursos poderosos, ela torna o desenvolvimento de APIs e serviços web mais rápido e divertido.
 
-## Características Principais
+## ✨ Principais Características
 
-- **Sintaxe Limpa**: Sintaxe inspirada em C#, mas com menos verbosidade
-- **CRUD Automático**: Geração automática de APIs RESTful com `@crud`
-- **DTOs Simplificados**: Criação de DTOs com `@dto`
-- **Pattern Matching**: Suporte nativo a pattern matching com `pmatching`
-- **Funções Expressivas**: Sintaxe moderna para funções com `fn` e `=>`
-- **Coleções Genéricas**: Suporte a `list<T>` e `dict<K,V>`
+- 🔥 Sintaxe moderna e intuitiva
+- 🚀 Suporte nativo a APIs REST
+- 💾 Integração fácil com bancos de dados
+- 🛡️ Segurança integrada
+- 🔄 Padrões de projeto embutidos
+- 📦 Sistema de pacotes robusto
 
-## Começando
+## 📚 Documentação
 
-1. Instale o Jot Lang:
-   ```bash
-   dotnet tool install -g jot
-   ```
+- [Sintaxe](syntax.md) - Aprenda a sintaxe da linguagem
+- [Referência da API](api-reference.md) - Documentação completa da API
+- [Exemplos](examples.md) - Exemplos práticos de uso
 
-2. Crie um novo projeto de API:
-   ```bash
-   jot new api MinhaApi
-   ```
+## 🚀 Começando
 
-3. Execute o projeto:
-   ```bash
-   cd MinhaApi
-   jot run src/Program.jt
-   ```
+Para começar a usar o JotLang, siga estes passos:
 
-## Exemplo Básico
+1. Instale o JotLang CLI
+2. Crie um novo projeto
+3. Comece a codar!
 
-```jot
-import System
+```bash
+# Instalar o JotLang CLI
+dotnet tool install -g jotlang
 
-module MinhaApp {
-    @crud User {
-        prop int Id
-        prop string Name
-        prop string Email
-    }
+# Criar um novo projeto
+jotlang new meu-projeto
 
-    @dto UserDto {
-        prop string Name
-        prop string Email
-    }
+# Entrar no diretório do projeto
+cd meu-projeto
 
-    class Program {
-        fn Main() {
-            print("Hello, Jot!")
-            
-            var users = list<User>()
-            foreach user in users {
-                pmatching user {
-                    case User u when u.Name == "Admin" => print($"Admin: {u.Email}")
-                    case User u => print($"User: {u.Name}")
-                }
-            }
-        }
-    }
-}
+# Executar o projeto
+jotlang run
 ```
 
-## Próximos Passos
+## 🤝 Contribuindo
 
-- [Guia de Instalação](./docs/getting-started/installation.md)
-- [Tutorial Básico](./docs/getting-started/tutorial.md)
-- [Referência da Linguagem](./docs/reference/index.md)
-- [Exemplos](./docs/examples/index.md) 
+Contribuições são bem-vindas! Sinta-se à vontade para:
+
+- Reportar bugs
+- Sugerir melhorias
+- Enviar pull requests
+- Melhorar a documentação
+
+## 📄 Licença
+
+JotLang é licenciado sob a [MIT License](LICENSE). 

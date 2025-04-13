@@ -1,242 +1,184 @@
-# 🎯 Exemplos Práticos JotLang
+---
+layout: default
+title: Exemplos - JotLang
+---
 
-## 📝 Básico
+# 📝 Exemplos Práticos
 
-### 👋 Hello World
+Aqui estão alguns exemplos práticos de como usar o JotLang em diferentes cenários.
+
+## 🏗️ API REST
+
 ```jot
-fn main() => void {
-    print("Olá, Mundo!")
-}
-```
+namespace Api {
+    @httpget("/users")
+    fn GetUsers() => List<User> = {
+        return db.Users.ToList()
+    }
 
-### 🔢 Calculadora
-```jot
-fn soma(a: int, b: int) => int {
-    return a + b
-}
-
-fn main() => void {
-    let resultado = soma(5, 3)
-    print("5 + 3 = {resultado}")
-}
-```
-
-## 📦 CRUD
-
-### 👤 Usuários
-```jot
-@crud("users")
-class User {
-    prop id: int
-    prop name: string
-    prop email: string
-    prop age: int
-}
-
-@httpget("/api/users")
-fn ListUsers() => List<User> {
-    return User.all()
-}
-
-@httppost("/api/users")
-fn CreateUser(@body user: User) => User {
-    return user.save()
-}
-
-@httpput("/api/users/{id}")
-fn UpdateUser(id: int, @body user: User) => User {
-    return User.update(id, user)
-}
-
-@httpdelete("/api/users/{id}")
-fn DeleteUser(id: int) => void {
-    User.delete(id)
-}
-```
-
-## 🌐 Web
-
-### 📡 API REST
-```jot
-@httpget("/api/products")
-fn ListProducts() => List<Product> {
-    return Product.all()
-}
-
-@httppost("/api/products")
-fn CreateProduct(@body product: Product) => Product {
-    return product.save()
-}
-
-@httpget("/api/products/{id}")
-fn GetProduct(id: int) => Product {
-    return Product.find(id)
-}
-```
-
-### 💬 Chat WebSocket
-```jot
-@websocket("/chat")
-fn Chat(ws: WebSocket) {
-    ws.on("message", (msg) => {
-        let response = {
-            user: ws.user,
-            message: msg,
-            timestamp: now()
+    @httppost("/users")
+    fn CreateUser(@dto UserDto user) => User = {
+        var newUser = new User {
+            Name = user.Name,
+            Email = user.Email
         }
-        ws.broadcast(response)
-    })
+        db.Users.Add(newUser)
+        db.SaveChanges()
+        return newUser
+    }
 }
 ```
 
-## 💾 Database
+## 💾 CRUD com Banco de Dados
 
-### 📊 Queries
 ```jot
-fn GetActiveUsers() => List<User> {
-    return query<User>("""
-        SELECT * FROM users 
-        WHERE status = 'active' 
-        ORDER BY created_at DESC
-    """)
-}
+namespace Data {
+    @crud
+    class Product {
+        prop Id: int
+        prop Name: string
+        prop Price: decimal
+        prop Stock: int
+    }
 
-fn UpdateUserStatus(id: int, status: string) => void {
-    execute("""
-        UPDATE users 
-        SET status = {status} 
-        WHERE id = {id}
-    """)
+    @crud
+    class Order {
+        prop Id: int
+        prop CustomerId: int
+        prop Products: List<Product>
+        prop Total: decimal
+    }
 }
 ```
 
-## 🔄 Padrões
+## 🔍 Pattern Matching
 
-### 🏭 Factory
 ```jot
-@factory
-class UserFactory {
-    fn create(name: string, email: string) => User {
-        return User {
-            name: name,
-            email: email,
-            created_at: now()
+fn ProcessPayment(payment: Payment) => string = {
+    pmatching payment {
+        case CreditCard(card) => "Processando cartão de crédito"
+        case Pix(key) => "Processando PIX"
+        case Boleto(code) => "Gerando boleto"
+        case _ => "Método de pagamento inválido"
+    }
+}
+```
+
+## 🔄 WebSocket Chat
+
+```jot
+namespace Chat {
+    @websocket("/chat")
+    class ChatHub {
+        fn OnMessage(message: string) => void = {
+            Clients.All.SendMessage(message)
+        }
+
+        fn OnJoin(user: string) => void = {
+            Clients.All.SendMessage($"{user} entrou no chat")
         }
     }
 }
 ```
 
-### 🔄 Observer
+## 🛡️ Autenticação e Autorização
+
 ```jot
-@observable
-class EventBus {
-    fn on(event: string, handler: (any) => void) => void {
-        // Implementação
+namespace Auth {
+    @httpget("/profile")
+    @authorize
+    fn GetProfile() => UserProfile = {
+        var userId = User.GetId()
+        return db.Profiles.Find(userId)
     }
-    
-    fn emit(event: string, data: any) => void {
-        // Implementação
-    }
-}
-```
 
-## 📊 Coleções
-
-### 🔢 Listas
-```jot
-fn ProcessNumbers() => void {
-    let numbers = list<int>()
-    numbers.add(1)
-    numbers.add(2)
-    numbers.add(3)
-    
-    let doubled = numbers.map(n => n * 2)
-    let even = numbers.filter(n => n % 2 == 0)
-    let sum = numbers.reduce((acc, n) => acc + n, 0)
-}
-```
-
-### 📝 Dicionários
-```jot
-fn ProcessConfig() => void {
-    let config = dict<string,any>()
-    config["host"] = "localhost"
-    config["port"] = 8080
-    config["debug"] = true
-    
-    for (key, value) in config {
-        print("{key}: {value}")
+    @httppost("/login")
+    fn Login(@dto LoginDto credentials) => AuthResult = {
+        var user = db.Users.FirstOrDefault(u => u.Email == credentials.Email)
+        if (user == null || !VerifyPassword(user, credentials.Password)) {
+            return new AuthResult { Success = false }
+        }
+        
+        var token = GenerateJwtToken(user)
+        return new AuthResult { 
+            Success = true,
+            Token = token
+        }
     }
 }
 ```
 
-## 🔒 Segurança
+## 📊 Cache com TTL
 
-### 🔐 Autenticação
 ```jot
-@auth
-@httpget("/api/profile")
-fn GetProfile() => User {
-    return current_user()
-}
+namespace Cache {
+    @cache(ttl: "5m")
+    fn GetCachedData(key: string) => string = {
+        return ExpensiveOperation(key)
+    }
 
-@role("admin")
-@httpget("/api/admin/dashboard")
-fn GetDashboard() => Dashboard {
-    return Dashboard.load()
+    @cache(ttl: "1h")
+    fn GetUserData(userId: int) => UserData = {
+        return db.Users.Find(userId)
+    }
 }
 ```
 
-### 🔑 Autorização
-```jot
-@permission("read:users")
-@httpget("/api/users")
-fn ListUsers() => List<User> {
-    return User.all()
-}
+## 🔄 Background Jobs
 
-@permission("write:users")
-@httppost("/api/users")
-fn CreateUser(@body user: User) => User {
-    return user.save()
+```jot
+namespace Jobs {
+    @background(every: "1h")
+    fn CleanupOldData() => void = {
+        var oldData = db.Data.Where(d => d.CreatedAt < DateTime.Now.AddDays(-30))
+        db.Data.RemoveRange(oldData)
+        db.SaveChanges()
+    }
+
+    @background(every: "5m")
+    fn CheckSystemHealth() => void = {
+        var health = new SystemHealth {
+            Memory = GetMemoryUsage(),
+            CPU = GetCPUUsage(),
+            Disk = GetDiskSpace()
+        }
+        NotifyHealthStatus(health)
+    }
 }
 ```
 
-## 📦 Cache
+## 🧪 Testes Unitários
 
-### 🔄 Cache com TTL
 ```jot
-@cache(ttl: 3600)
-@httpget("/api/weather/{city}")
-fn GetWeather(city: string) => Weather {
-    return WeatherService.get(city)
-}
+namespace Tests {
+    class CalculatorTests {
+        fn TestAddition() => void = {
+            var calc = new Calculator()
+            var result = calc.Add(2, 3)
+            Assert.Equal(5, result)
+        }
 
-@cachekey("user:{id}")
-@httpget("/api/users/{id}")
-fn GetUser(id: int) => User {
-    return User.find(id)
+        fn TestDivision() => void = {
+            var calc = new Calculator()
+            Assert.Throws<DivideByZeroException>(() => calc.Divide(10, 0))
+        }
+    }
 }
 ```
 
-## 📋 Validação
+## 📦 Publicando um Pacote
 
-### ✅ Validação de Dados
 ```jot
-@validate
-class UserDTO {
-    @required
-    @minlength(3)
-    @maxlength(100)
-    prop name: string
-    
-    @required
-    @email
-    prop email: string
-    
-    @required
-    @min(18)
-    prop age: int
+namespace MyPackage {
+    @package("meu-pacote", version: "1.0.0")
+    class MyLibrary {
+        prop Config: string
+        prop IsEnabled: bool
+
+        fn Initialize() => void = {
+            // Inicialização do pacote
+        }
+    }
 }
 ```
 
