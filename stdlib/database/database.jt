@@ -1,0 +1,57 @@
+﻿class Database {
+    prop string ConnectionString
+    prop bool IsConnected
+
+    fn Connect(): void {
+        this.IsConnected = true
+        print("Conectado ao banco de dados")
+    }
+
+    fn Disconnect(): void {
+        this.IsConnected = false
+        print("Desconectado do banco de dados")
+    }
+}
+
+class Transaction {
+    prop bool IsActive
+
+    fn Begin(): void {
+        this.IsActive = true
+    }
+
+    fn Commit(): void {
+        this.IsActive = false
+    }
+
+    fn Rollback(): void {
+        this.IsActive = false
+    }
+}
+
+class Entity {
+    prop int Id
+    prop string CreatedAt
+    prop string UpdatedAt
+}
+
+class Repository<T> {
+    prop Database Db
+
+    fn Create(entity: T): void {
+        print("Criando entidade")
+    }
+
+    fn Read(id: int): T {
+        print("Lendo entidade")
+        return null
+    }
+
+    fn Update(entity: T): void {
+        print("Atualizando entidade")
+    }
+
+    fn Delete(id: int): void {
+        print("Deletando entidade")
+    }
+}

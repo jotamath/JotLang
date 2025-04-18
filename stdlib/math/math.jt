@@ -1,0 +1,60 @@
+// Biblioteca matemática padrão da JotLang
+@module math
+
+// Constantes
+const PI = 3.14159265359
+const E = 2.71828182846
+
+// Funções básicas
+fn sqrt(x float) : float {
+    return __native_sqrt(x)
+}
+
+fn pow(base float, expoente float) : float {
+    return __native_pow(base, expoente)
+}
+
+fn abs(x float) : float {
+    if x < 0 then
+        return -x
+    return x
+}
+
+// Funções trigonométricas
+fn sin(x float) : float {
+    return __native_sin(x)
+}
+
+fn cos(x float) : float {
+    return __native_cos(x)
+}
+
+fn tan(x float) : float {
+    return __native_tan(x)
+}
+
+// Funções de arredondamento
+fn round(x float) : int {
+    return __native_round(x)
+}
+
+fn ceil(x float) : int {
+    return __native_ceil(x)
+}
+
+fn floor(x float) : int {
+    return __native_floor(x)
+}
+
+// Funções estatísticas
+fn max(x float, y float) : float {
+    if x > y then
+        return x
+    return y
+}
+
+fn min(x float, y float) : float {
+    if x < y then
+        return x
+    return y
+} 

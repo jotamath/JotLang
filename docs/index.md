@@ -1,58 +1,102 @@
----
-layout: default
-title: JotLang - A melhor amiga do backend
----
+# 📚 Documentação JotLang 1.5
 
-# 🚀 Bem-vindo ao JotLang
+## 🎉 Novidades da Versão 1.5
 
-JotLang é uma linguagem de programação moderna e elegante projetada para desenvolvimento backend. Com uma sintaxe limpa e recursos poderosos, ela torna o desenvolvimento de APIs e serviços web mais rápido e divertido.
+A versão 1.5 do JotLang traz várias melhorias e novos recursos:
 
-## ✨ Principais Características
+### 🛠️ Novos Templates
+- Templates para diferentes tipos de projetos
+- Suporte a múltiplos bancos de dados
+- Opções de autenticação flexíveis
+- Configurações pré-definidas
 
-- 🔥 Sintaxe moderna e intuitiva
-- 🚀 Suporte nativo a APIs REST
-- 💾 Integração fácil com bancos de dados
-- 🛡️ Segurança integrada
-- 🔄 Padrões de projeto embutidos
-- 📦 Sistema de pacotes robusto
+### 🚀 Melhorias na CLI
+- Novos comandos e opções
+- Melhor feedback de erros
+- Suporte a flags personalizadas
+- Autocompletar mais inteligente
 
-## 📚 Documentação
+### 📚 Documentação Expandida
+- Mais exemplos práticos
+- Guias passo a passo
+- Referência completa da API
+- Tutoriais em vídeo
 
-- [Sintaxe](syntax.md) - Aprenda a sintaxe da linguagem
-- [Referência da API](api-reference.md) - Documentação completa da API
-- [Exemplos](examples.md) - Exemplos práticos de uso
+### 💾 Suporte a Bancos de Dados
+- SQL Server
+- PostgreSQL
+- MongoDB
+- Migrations automáticas
+
+### 🔒 Segurança
+- JWT
+- OAuth 2.0
+- ASP.NET Identity
+- 2FA
+
+## 📋 Índice
+
+1. [Introdução](introduction.md)
+2. [Instalação](installation.md)
+3. [Primeiros Passos](getting-started.md)
+4. [Sintaxe](syntax.md)
+5. [Templates](templates.md)
+6. [API Reference](api-reference.md)
+7. [Exemplos](examples.md)
+8. [Contribuindo](contributing.md)
 
 ## 🚀 Começando
 
-Para começar a usar o JotLang, siga estes passos:
+Para começar a usar o JotLang 1.5:
 
-1. Instale o JotLang CLI
-2. Crie um novo projeto
-3. Comece a codar!
-
+1. Instale a ferramenta:
 ```bash
-# Instalar o JotLang CLI
 dotnet tool install -g jotlang
-
-# Criar um novo projeto
-jotlang new meu-projeto
-
-# Entrar no diretório do projeto
-cd meu-projeto
-
-# Executar o projeto
-jotlang run
 ```
+
+2. Crie um novo projeto:
+```bash
+jot new api MinhaAPI
+```
+
+3. Execute o projeto:
+```bash
+jot run src/Program.jt
+```
+
+## 📦 Templates Disponíveis
+
+### API
+- REST API
+- WebSocket
+- Microservice
+- CRUD
+
+### Web
+- MVC
+- Blazor
+- SPA
+
+### Database
+- SQL Server
+- PostgreSQL
+- MongoDB
+
+### Security
+- JWT
+- OAuth
+- Identity
 
 ## 🤝 Contribuindo
 
-Contribuições são bem-vindas! Sinta-se à vontade para:
+Quer contribuir com o JotLang? Veja nosso guia de contribuição em [CONTRIBUTING.md](contributing.md).
 
-- Reportar bugs
-- Sugerir melhorias
-- Enviar pull requests
-- Melhorar a documentação
+## 📝 Licença
 
-## 📄 Licença
+JotLang é licenciado sob a [MIT License](LICENSE).
 
-JotLang é licenciado sob a [MIT License](LICENSE). 
+---
+
+<div align="center">
+  <sub>Feito com ❤️ pela comunidade JotLang</sub>
+</div> 

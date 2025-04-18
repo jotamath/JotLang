@@ -1,0 +1,321 @@
+// Referência Completa da Linguagem JotLang
+// ======================================
+
+// 1. Estrutura Básica
+// -------------------
+
+// Um programa JotLang consiste em uma ou mais classes
+// Cada classe pode conter propriedades e métodos
+// O método Main() é o ponto de entrada do programa
+
+// 2. Tipos de Dados
+// ----------------
+
+// Tipos primitivos
+var inteiro: int = 42
+var decimal: float = 3.14
+var texto: string = "Olá, mundo!"
+var booleano: bool = true
+
+// 3. Declaração de Variáveis
+// ------------------------
+
+// Sintaxe: var nome: tipo = valor
+var idade: int = 25
+var nome: string = "João"
+var salario: float = 2500.50
+var ativo: bool = true
+
+// 4. Operadores
+// ------------
+
+// Aritméticos
+var soma: int = 10 + 5
+var subtracao: int = 10 - 5
+var multiplicacao: int = 10 * 5
+var divisao: float = 10 / 5
+var resto: int = 10 % 3
+
+// Comparação
+var igual: bool = 10 == 10
+var diferente: bool = 10 != 5
+var maior: bool = 10 > 5
+var menor: bool = 5 < 10
+var maiorIgual: bool = 10 >= 10
+var menorIgual: bool = 5 <= 10
+
+// Lógicos
+var e: bool = true && false
+var ou: bool = true || false
+var nao: bool = !true
+
+// 5. Estruturas de Controle
+// -----------------------
+
+// If-Else
+if idade >= 18 {
+    print("Maior de idade")
+} else {
+    print("Menor de idade")
+}
+
+// For
+for var i: int = 0; i < 10; i++ {
+    print("Iteração " + i)
+}
+
+// While
+var contador: int = 0
+while contador < 5 {
+    print("Contador: " + contador)
+    contador++
+}
+
+// 6. Funções
+// ---------
+
+// Declaração: fn nome(param1: tipo1, param2: tipo2): tipoRetorno { ... }
+fn somar(a: int, b: int): int {
+    return a + b
+}
+
+// Função sem retorno
+fn imprimirMensagem(mensagem: string): void {
+    print(mensagem)
+}
+
+// 7. Classes
+// ---------
+
+// Declaração de classe
+class Pessoa {
+    // Propriedades
+    prop string Nome
+    prop int Idade
+    prop float Salario
+
+    // Métodos
+    fn Apresentar(): void {
+        print("Nome: " + this.Nome)
+        print("Idade: " + this.Idade)
+        print("Salário: " + this.Salario)
+    }
+
+    fn AumentarSalario(percentual: float): void {
+        this.Salario = this.Salario * (1 + percentual/100)
+    }
+}
+
+// 8. Biblioteca Padrão (stdlib)
+// ---------------------------
+
+// 8.1 Types
+class Types {
+    prop string String
+    prop int Int
+    prop float Float
+    prop bool Bool
+
+    fn ToString(value: any): string {
+        return value.ToString()
+    }
+
+    fn ToInt(value: string): int {
+        return int.Parse(value)
+    }
+
+    fn ToFloat(value: string): float {
+        return float.Parse(value)
+    }
+
+    fn ToBool(value: string): bool {
+        return bool.Parse(value)
+    }
+}
+
+// 8.2 IO
+class IO {
+    prop string FilePath
+
+    fn ReadFile(path: string): string {
+        return File.ReadAllText(path)
+    }
+
+    fn WriteFile(path: string, content: string): void {
+        File.WriteAllText(path, content)
+    }
+
+    fn AppendFile(path: string, content: string): void {
+        File.AppendAllText(path, content)
+    }
+
+    fn FileExists(path: string): bool {
+        return File.Exists(path)
+    }
+
+    fn DeleteFile(path: string): void {
+        File.Delete(path)
+    }
+}
+
+// 8.3 HTTP
+class Request {
+    prop string Method
+    prop string Path
+    prop map[string]string Headers
+    prop string Body
+}
+
+class Response {
+    prop int StatusCode
+    prop map[string]string Headers
+    prop string Body
+
+    fn Send(status: int, body: string): void {
+        this.StatusCode = status
+        this.Body = body
+    }
+}
+
+class Server {
+    prop string Host
+    prop int Port
+    prop map[string]Function Routes
+
+    fn Start(): void {
+        print("Servidor iniciado em " + this.Host + ":" + this.Port)
+    }
+
+    fn Stop(): void {
+        print("Servidor parado")
+    }
+
+    fn AddRoute(path: string, handler: Function): void {
+        this.Routes[path] = handler
+    }
+}
+
+// 8.4 WebSocket
+class Connection {
+    prop string Id
+    prop bool IsOpen
+    prop Function OnMessage
+
+    fn Send(message: string): void {
+        if this.IsOpen {
+            print("Enviando mensagem: " + message)
+        }
+    }
+
+    fn Close(): void {
+        this.IsOpen = false
+    }
+}
+
+class WSServer {
+    prop string Host
+    prop int Port
+    prop map[string]Connection Connections
+
+    fn Start(): void {
+        print("Servidor WebSocket iniciado em " + this.Host + ":" + this.Port)
+    }
+
+    fn Stop(): void {
+        print("Servidor WebSocket parado")
+    }
+}
+
+// 8.5 Database
+class Database {
+    prop string ConnectionString
+    prop bool IsConnected
+
+    fn Connect(): void {
+        this.IsConnected = true
+        print("Conectado ao banco de dados")
+    }
+
+    fn Disconnect(): void {
+        this.IsConnected = false
+        print("Desconectado do banco de dados")
+    }
+}
+
+class Transaction {
+    prop bool IsActive
+
+    fn Begin(): void {
+        this.IsActive = true
+    }
+
+    fn Commit(): void {
+        this.IsActive = false
+    }
+
+    fn Rollback(): void {
+        this.IsActive = false
+    }
+}
+
+class Entity {
+    prop int Id
+    prop string CreatedAt
+    prop string UpdatedAt
+}
+
+class Repository<T> {
+    prop Database Db
+
+    fn Create(entity: T): void {
+        print("Criando entidade")
+    }
+
+    fn Read(id: int): T {
+        print("Lendo entidade")
+        return null
+    }
+
+    fn Update(entity: T): void {
+        print("Atualizando entidade")
+    }
+
+    fn Delete(id: int): void {
+        print("Deletando entidade")
+    }
+}
+
+// 9. Exemplo Completo
+// ------------------
+
+class Programa {
+    fn Main(): void {
+        // Criando uma pessoa
+        var pessoa: Pessoa = new Pessoa()
+        pessoa.Nome = "Maria"
+        pessoa.Idade = 30
+        pessoa.Salario = 5000.0
+
+        // Usando métodos
+        pessoa.Apresentar()
+        pessoa.AumentarSalario(10)
+        pessoa.Apresentar()
+
+        // Trabalhando com arquivos
+        var io: IO = new IO()
+        io.WriteFile("teste.txt", "Olá, mundo!")
+        var conteudo: string = io.ReadFile("teste.txt")
+        print(conteudo)
+
+        // Servidor HTTP
+        var server: Server = new Server()
+        server.Host = "localhost"
+        server.Port = 8080
+        server.Start()
+
+        // Conexão com banco de dados
+        var db: Database = new Database()
+        db.ConnectionString = "postgres://user:pass@localhost:5432/db"
+        db.Connect()
+    }
+} 

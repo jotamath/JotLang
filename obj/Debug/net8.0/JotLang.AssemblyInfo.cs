@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("JotLang")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c94dfb010aef738c61beea6e4eca85f29d7db3af")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a32c9604f19c1004577374346b179d818720ca35")]
 [assembly: System.Reflection.AssemblyProductAttribute("JotLang")]
 [assembly: System.Reflection.AssemblyTitleAttribute("JotLang")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

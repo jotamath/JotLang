@@ -1,0 +1,35 @@
+﻿class Request {
+    prop string Method
+    prop string Path
+    prop map[string]string Headers
+    prop string Body
+}
+
+class Response {
+    prop int StatusCode
+    prop map[string]string Headers
+    prop string Body
+
+    fn Send(status: int, body: string): void {
+        this.StatusCode = status
+        this.Body = body
+    }
+}
+
+class Server {
+    prop string Host
+    prop int Port
+    prop map[string]Function Routes
+
+    fn Start(): void {
+        print("Servidor iniciado em " + this.Host + ":" + this.Port)
+    }
+
+    fn Stop(): void {
+        print("Servidor parado")
+    }
+
+    fn AddRoute(path: string, handler: Function): void {
+        this.Routes[path] = handler
+    }
+}

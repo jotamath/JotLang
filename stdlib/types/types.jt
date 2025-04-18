@@ -1,0 +1,22 @@
+﻿class Types {
+    prop string String
+    prop int Int
+    prop float Float
+    prop bool Bool
+
+    fn ToString(value: any): string {
+        return value.ToString()
+    }
+
+    fn ToInt(value: string): int {
+        return int.Parse(value)
+    }
+
+    fn ToFloat(value: string): float {
+        return float.Parse(value)
+    }
+
+    fn ToBool(value: string): bool {
+        return bool.Parse(value)
+    }
+}

@@ -1,95 +1,77 @@
-# 🚀 JotLang - Uma Linguagem de Programação Moderna e Expressiva
+# 🚀 JotLang - A Melhor Amiga do Backend
 
-JotLang é uma linguagem de programação moderna e expressiva que transpila para C#. Ela foi projetada para ser intuitiva, produtiva e agradável de usar, combinando a robustez do C# com uma sintaxe mais limpa e moderna.
+JotLang é uma linguagem de programação moderna e elegante, especialmente projetada para desenvolvimento de APIs e aplicações backend em .NET.
 
-## ✨ Características Principais
+## ✨ Características
 
-- 🎯 Sintaxe limpa e moderna
-- 🔄 Transpilação para C# (.NET 9.0)
-- 🏗️ Suporte a Programação Orientada a Objetos
-- 📦 Sistema de módulos
-- 🎨 Suporte a decoradores
-- 🔍 Tipagem estática
-- 🚀 Compilação JIT
-- 📚 Biblioteca padrão rica
-- 🛠️ Ferramentas de desenvolvimento
+- 🎯 Sintaxe limpa e intuitiva
+- 🔄 Suporte nativo a APIs REST
+- 💾 Integração com Entity Framework Core
+- 🔐 Autenticação JWT pronta
+- 📚 Documentação Swagger automática
+- 🛠️ Templates de projeto prontos
+- 🌐 Suporte a WebSockets
+- 🔄 Padrões de projeto integrados
+- 🚀 CLI moderna e intuitiva
+- 📦 Templates para diversos tipos de projeto
 
-## 📋 Requisitos
+## 🚀 Começando
 
-- .NET 9.0 SDK
-- Visual Studio 2022 ou VS Code
-- Windows 10/11 ou Linux
+### Instalação
 
-## 🚀 Instalação
-
-1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/JotLang.git
-cd JotLang
+dotnet tool install -g jotlang
 ```
 
-2. Restaure as dependências:
+### Criando uma nova API
+
 ```bash
-dotnet restore
-```
-
-3. Compile o projeto:
-```bash
-dotnet build
-```
-
-## 📝 Exemplo de Código
-
-```jot
-module HelloWorld
-
-    class Program {
-        fn Main() {
-            print("Olá, Mundo! 👋")
-        }
-    }
+jot new api MinhaAPI
+cd MinhaAPI
+jot run src/Program.jt
 ```
 
 ## 📚 Documentação
 
-A documentação completa está disponível em [docs/](docs/):
+A documentação completa está disponível em:
+- [Guia de Início Rápido](docs/quickstart.md)
+- [Referência da API](docs/api-reference.md)
+- [Exemplos](docs/examples.md)
+- [Templates](docs/templates.md)
 
-- 📖 [Guia de Sintaxe](docs/syntax.md)
-- 🏗️ [Estrutura do Projeto](docs/project-structure.md)
-- 🔄 [Processo de Transpilação](docs/transpilation.md)
-- 📦 [Sistema de Módulos](docs/modules.md)
-- 🎨 [Decoradores](docs/decorators.md)
-- 🛠️ [Ferramentas de Desenvolvimento](docs/tools.md)
+## 🛠️ Templates Disponíveis
 
-## 🎯 Roadmap e Melhorias Futuras
+### API Templates
+- `api` - API REST completa com autenticação JWT e Entity Framework
+- `websocket` - Aplicação WebSocket com chat em tempo real
+- `microservice` - Estrutura para microsserviços
+- `crud` - CRUD completo com validação e cache
 
-### 🚀 Próximas Funcionalidades
-- [ ] Suporte a programação funcional
-- [ ] Pattern matching avançado
-- [ ] Macros e metaprogramação
-- [ ] Sistema de pacotes integrado
-- [ ] Suporte a WebAssembly
+### Web Templates
+- `mvc` - Aplicação MVC com Razor Pages
+- `blazor` - Aplicação Blazor Server
+- `spa` - API + Frontend SPA (React/Angular)
 
-### 🛠️ Melhorias Técnicas
-- [ ] Otimização do processo de transpilação
-- [ ] Melhor tratamento de erros
-- [ ] Sistema de tipos mais robusto
-- [ ] Suporte a generics avançado
-- [ ] Melhor integração com IDEs
+### Database Templates
+- `sql` - Projeto com SQL Server
+- `postgres` - Projeto com PostgreSQL
+- `mongodb` - Projeto com MongoDB
 
-### 📚 Documentação
-- [ ] Tutoriais interativos
-- [ ] Exemplos mais abrangentes
-- [ ] Guia de migração de C#
-- [ ] Documentação de API
-- [ ] Playground online
+### Security Templates
+- `auth` - Projeto com autenticação completa
+- `oauth` - Projeto com OAuth 2.0
+- `identity` - Projeto com ASP.NET Identity
 
-### 🧪 Testes e Qualidade
-- [ ] Cobertura de testes mais abrangente
-- [ ] Análise estática de código
-- [ ] Benchmarks de performance
-- [ ] Testes de integração
-- [ ] CI/CD automatizado
+## 🔥 Novidades na Versão 1.5
+
+- ✨ Novos templates para diferentes tipos de projeto
+- 🚀 Melhorias na CLI com mais comandos e opções
+- 📚 Documentação expandida com mais exemplos
+- 🔄 Suporte a mais bancos de dados
+- 🛠️ Melhorias nos templates existentes
+- 📦 Novas bibliotecas incluídas por padrão
+- 🔐 Mais opções de segurança
+- 🌐 Suporte a mais tipos de aplicações web
 
 ## 🤝 Contribuindo
 
@@ -103,18 +85,8 @@ A documentação completa está disponível em [docs/](docs/):
 
 Este projeto está licenciado sob a licença MIT - veja o arquivo [LICENSE](LICENSE) para detalhes.
 
-## 👥 Autores
-
-- Seu Nome - Desenvolvedor Principal
-
-## 🙏 Agradecimentos
-
-- À comunidade .NET
-- Aos contribuidores do projeto
-- Aos usuários que ajudam a melhorar a linguagem
-
 ---
 
 <div align="center">
-  <sub>Feito com ❤️ por desenvolvedores para desenvolvedores</sub>
+  <sub>Feito com ❤️ pela comunidade JotLang</sub>
 </div> 

@@ -1,0 +1,23 @@
+﻿class IO {
+    prop string FilePath
+
+    fn ReadFile(path: string): string {
+        return File.ReadAllText(path)
+    }
+
+    fn WriteFile(path: string, content: string): void {
+        File.WriteAllText(path, content)
+    }
+
+    fn AppendFile(path: string, content: string): void {
+        File.AppendAllText(path, content)
+    }
+
+    fn FileExists(path: string): bool {
+        return File.Exists(path)
+    }
+
+    fn DeleteFile(path: string): void {
+        File.Delete(path)
+    }
+}

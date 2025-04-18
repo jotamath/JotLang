@@ -1,0 +1,29 @@
+﻿class Connection {
+    prop string Id
+    prop bool IsOpen
+    prop Function OnMessage
+
+    fn Send(message: string): void {
+        if this.IsOpen {
+            print("Enviando mensagem: " + message)
+        }
+    }
+
+    fn Close(): void {
+        this.IsOpen = false
+    }
+}
+
+class Server {
+    prop string Host
+    prop int Port
+    prop map[string]Connection Connections
+
+    fn Start(): void {
+        print("Servidor WebSocket iniciado em " + this.Host + ":" + this.Port)
+    }
+
+    fn Stop(): void {
+        print("Servidor WebSocket parado")
+    }
+}

@@ -1,171 +1,84 @@
-# 🚀 Instalação e Configuração da JotLang
+# 📥 Instalação do JotLang
 
-## 📋 Pré-requisitos
+## Requisitos
 
-- [.NET 9.0 SDK](https://dotnet.microsoft.com/download/dotnet/9.0) ou superior
-- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) ou [VS Code](https://code.visualstudio.com/)
-- [Git](https://git-scm.com/downloads)
+- .NET 9.0 SDK ou superior
+- Visual Studio 2022 ou VS Code
+- Git (opcional, para clonar o repositório)
 
-## 📥 Instalação
+## Instalação via NuGet
 
-### 🔄 Clonando o Repositório
+1. Adicione o pacote JotLang ao seu projeto:
+
 ```bash
-git clone https://github.com/seu-usuario/JotLang.git
+dotnet add package JotLang
+```
+
+2. Ou instale globalmente como uma ferramenta:
+
+```bash
+dotnet tool install -g jotlang
+```
+
+## Instalação Manual
+
+1. Clone o repositório:
+
+```bash
+git clone https://github.com/jotamath/JotLang.git
 cd JotLang
 ```
 
-### 📦 Restaurando Dependências
+2. Restaure as dependências:
+
 ```bash
 dotnet restore
 ```
 
-### 🏗️ Compilando o Projeto
+3. Compile o projeto:
+
 ```bash
 dotnet build
 ```
 
-## ⚙️ Configuração
+4. Execute os testes:
 
-### 📝 Configuração do Ambiente
-
-1. Crie um arquivo `.env` na raiz do projeto:
-```env
-JOTLANG_ENV=development
-JOTLANG_LOG_LEVEL=debug
-```
-
-2. Configure as variáveis de ambiente no seu sistema:
 ```bash
-# Windows (PowerShell)
-$env:JOTLANG_ENV="development"
-$env:JOTLANG_LOG_LEVEL="debug"
-
-# Linux/Mac
-export JOTLANG_ENV="development"
-export JOTLANG_LOG_LEVEL="debug"
+dotnet test
 ```
 
-### 🔧 Configuração do Projeto
+## Verificando a Instalação
 
-1. Abra o arquivo `appsettings.json`:
-```json
-{
-  "JotLang": {
-    "Environment": "development",
-    "LogLevel": "debug",
-    "Features": {
-      "WebSockets": true,
-      "Caching": true,
-      "Validation": true
-    }
-  }
-}
-```
+Para verificar se a instalação foi bem-sucedida:
 
-2. Personalize as configurações conforme necessário.
-
-## 🎯 Primeiros Passos
-
-### 📝 Criando um Novo Projeto
 ```bash
-dotnet new jotlang -n MeuProjeto
-cd MeuProjeto
+jot --version
 ```
 
-### 🔄 Executando o Projeto
+Você deve ver a versão 1.5.0 ou superior.
+
+## Atualização
+
+Para atualizar para a versão mais recente:
+
 ```bash
-dotnet run
+dotnet tool update -g jotlang
 ```
 
-### 📦 Adicionando Dependências
-```bash
-dotnet add package JotLang.Extensions
-dotnet add package JotLang.Web
-```
+## Solução de Problemas
 
-## 🔍 Verificando a Instalação
+### Erro: "Comando não encontrado"
+- Verifique se o .NET SDK está instalado
+- Adicione o diretório de ferramentas ao PATH
+- Execute `dotnet tool list -g` para verificar a instalação
 
-### 📝 Teste Básico
-Crie um arquivo `test.jt`:
-```jot
-module Teste {
-    fn Main() {
-        print("Hello, JotLang!")
-    }
-}
-```
+### Erro: "Versão incompatível"
+- Atualize o .NET SDK
+- Verifique a versão do runtime
+- Limpe o cache do NuGet
 
-Execute o teste:
-```bash
-dotnet run test.jt
-```
+## Próximos Passos
 
-## 🛠️ Ferramentas de Desenvolvimento
-
-### 📝 Extensões Recomendadas para VS Code
-- JotLang Language Support
-- JotLang Debugger
-- JotLang Formatter
-
-### 🔧 Configuração do Editor
-1. Instale as extensões recomendadas
-2. Configure o formatter:
-```json
-{
-  "editor.formatOnSave": true,
-  "jotlang.format.enable": true
-}
-```
-
-## 🔄 Atualização
-
-### 📦 Atualizando o Compilador
-```bash
-dotnet tool update -g JotLang.Compiler
-```
-
-### 🔄 Atualizando as Dependências
-```bash
-dotnet restore
-dotnet update
-```
-
-## 🎯 Solução de Problemas
-
-### 📝 Problemas Comuns
-
-1. **Erro de Compilação**
-   - Verifique se todas as dependências estão instaladas
-   - Execute `dotnet clean` e `dotnet build`
-
-2. **Erro de Runtime**
-   - Verifique as configurações do ambiente
-   - Confira os logs de erro
-
-3. **Problemas de Performance**
-   - Verifique a configuração de cache
-   - Otimize as queries do banco de dados
-
-### 🔍 Logs e Depuração
-
-1. Habilite logs detalhados:
-```bash
-dotnet run --log-level debug
-```
-
-2. Use o depurador:
-```bash
-dotnet run --debug
-```
-
-## 📚 Recursos Adicionais
-
-- [Documentação Oficial](https://jotlang.dev/docs)
-- [Exemplos de Código](https://github.com/jotlang/examples)
-- [Fórum da Comunidade](https://forum.jotlang.dev)
-
----
-
-<div align="center">
-  <sub>🤝 Precisa de ajuda? Abra uma issue no GitHub!</sub>
-</div> 
+- [Primeiros Passos](getting-started.md)
+- [Sintaxe](syntax.md)
+- [Templates](templates.md) 
