@@ -1,129 +1,125 @@
-import System
-import Microsoft.AspNetCore.Mvc
-import Microsoft.AspNetCore.Authorization
-import Microsoft.IdentityModel.Tokens
-import System.IdentityModel.Tokens.Jwt
-import System.Security.Claims
+// Authentication API example
+import "http"
+import "io"
+import "crypto"
 
-module AuthApi
-
-    @auth {
-        prop jwtSecret: string = env("JWT_SECRET")
-        prop jwtExpiration: int = 3600
+class Usuario {
+    prop string Id
+    prop string Email
+    prop string SenhaHash
+    prop list[string] Roles
+    prop int Pontos
+    prop string DataCriacao
+    
+    fn New(): void {
+        this.Roles = list[string]{}
+        this.Pontos = 0
     }
-
-    @dto LoginDTO {
-        prop email: string @required @email
-        prop senha: string @required @min(8)
+    
+    fn AdicionarRole(role: string): void {
+        this.Roles.Add(role)
+        this.Pontos = this.Pontos + 10
     }
-
-    @dto AuthResponseDTO {
-        prop token: string
-        prop usuario: UsuarioDTO
-    }
-
-    @entity Usuario {
-        prop id: guid
-        prop nome: string
-        prop email: string
-        prop senhaHash: string
-        prop roles: List<Role> @manyToMany
-    }
-
-    @dto UsuarioDTO {
-        prop id: guid
-        prop nome: string
-        prop email: string
-    }
-
-    @entity Role {
-        prop id: guid
-        prop nome: string
-        prop permissoes: List<Permissao> @manyToMany
-    }
-
-    @entity Permissao {
-        prop id: guid
-        prop nome: string
-    }
-
-    @api
-    @route("api/auth")
-    class AuthController : ControllerBase {
-        prop IConfiguration Config
-        prop ILogger<AuthController> Logger
-
-        ctor(IConfiguration config, ILogger<AuthController> logger) {
-            Config = config
-            Logger = logger
+    
+    fn ToJson(): map[string]string {
+        return {
+            "id": this.Id,
+            "email": this.Email,
+            "roles": this.Roles.ToString(),
+            "pontos": this.Pontos.ToString(),
+            "dataCriacao": this.DataCriacao
         }
+    }
+}
 
-        @httppost("login")
-        fn Login(credentials: LoginDTO) => AuthResponseDTO {
-            var usuario = db.Usuarios
-                .First(u => u.Email == credentials.email)
-            
-            if (!VerifyPassword(credentials.senha, usuario.SenhaHash)) {
-                throw new UnauthorizedException("Credenciais inválidas")
-            }
-            
-            var token = GenerateJwtToken(usuario)
-            
-            return new AuthResponseDTO {
-                token = token,
-                usuario = new UsuarioDTO(usuario)
+class AuthApi {
+    prop map[string]Usuario Usuarios
+    
+    fn New(): void {
+        this.Usuarios = map[string]Usuario{}
+    }
+    
+    fn Registrar(email: string, senha: string): map[string]string {
+        if this.Usuarios.ContainsKey(email) {
+            return {
+                "sucesso": "false",
+                "mensagem": "Email já cadastrado"
             }
         }
-
-        fn GenerateJwtToken(Usuario usuario) {
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config["Jwt:Key"]))
-            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
-            
-            var claims = new list<Claim> {
-                new Claim(ClaimTypes.Name, usuario.Email),
-                new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString())
-            }
-            
-            foreach role in usuario.roles {
-                claims.Add(new Claim(ClaimTypes.Role, role.nome))
-            }
-            
-            var token = new JwtSecurityToken(
-                issuer: Config["Jwt:Issuer"],
-                audience: Config["Jwt:Audience"],
-                claims: claims,
-                expires: DateTime.Now.AddHours(1),
-                signingCredentials: credentials
-            )
-            
-            return new JwtSecurityTokenHandler().WriteToken(token)
-        }
-
-        @httpget("/api/usuarios")
-        @authorize(roles: ["Admin"])
-        fn GetUsuarios() => List<UsuarioDTO> {
-            return db.Usuarios
-                .Select(u => new UsuarioDTO(u))
-                .ToList()
-        }
-
-        @httpget("/api/perfil")
-        @authorize
-        fn GetPerfil() => UsuarioDTO {
-            var userId = GetCurrentUserId()
-            var usuario = db.Usuarios.Find(userId)
-            return new UsuarioDTO(usuario)
+        
+        var usuario: Usuario = new Usuario()
+        usuario.Id = "user_" + DateTime.Now.Ticks
+        usuario.Email = email
+        usuario.SenhaHash = senha // Em produção, usar hash seguro
+        usuario.DataCriacao = DateTime.Now.ToString()
+        
+        this.Usuarios[email] = usuario
+        return {
+            "sucesso": "true",
+            "mensagem": "Usuário registrado com sucesso"
         }
     }
+    
+    fn Login(email: string, senha: string): map[string]string {
+        if !this.Usuarios.ContainsKey(email) {
+            return {
+                "sucesso": "false",
+                "mensagem": "Credenciais inválidas"
+            }
+        }
+        
+        var usuario: Usuario = this.Usuarios[email]
+        if usuario.SenhaHash == senha { // Em produção, comparar hashes
+            return {
+                "sucesso": "true",
+                "mensagem": "Login realizado com sucesso",
+                "usuario": usuario.ToJson()
+            }
+        }
+        
+        return {
+            "sucesso": "false",
+            "mensagem": "Credenciais inválidas"
+        }
+    }
+}
 
-    @api
-    @route("api/protected")
-    class ProtectedController : ControllerBase {
-        @httpget
-        @authorize
-        fn GetProtectedData() => Ok("Dados protegidos")
+class Programa {
+    fn Main(): void {
+        var api: AuthApi = new AuthApi()
+        
+        // Teste de registro
+        var resultadoRegistro: map[string]string = api.Registrar("usuario@teste.com", "senha123")
+        print("Resultado do registro: " + resultadoRegistro["mensagem"])
+        
+        // Teste de login
+        var resultadoLogin: map[string]string = api.Login("usuario@teste.com", "senha123")
+        print("Resultado do login: " + resultadoLogin["mensagem"])
+        
+        // Teste de login com credenciais inválidas
+        var resultadoLoginInvalido: map[string]string = api.Login("usuario@teste.com", "senhaerrada")
+        print("Resultado do login inválido: " + resultadoLoginInvalido["mensagem"])
+    }
+}
 
-        @httpget("admin")
-        @authorize("Admin")
-        fn GetAdminData() => Ok("Dados de administrador")
-    } 
+// Create server instance
+server = new http.Server {
+    Port = 8080,
+    Routes = {}
+}
+
+// Create API instance
+api = new AuthApi {
+    Usuarios = {}
+}
+
+// Configure routes
+server.post("/auth/register", api.register)
+server.post("/auth/login", api.login)
+
+// Start server
+io.println("Auth API started on port 8080...")
+io.println("Available endpoints:")
+io.println("- POST /auth/register")
+io.println("- POST /auth/login")
+call server.listen()

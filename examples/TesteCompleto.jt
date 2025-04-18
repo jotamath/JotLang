@@ -1,0 +1,13 @@
+// Teste de funções básicas
+class Program {
+    fn Main(): void {
+        var x: int = 10
+        var y: int = 20
+        var resultado: int = Somar(x, y)
+        print("10 + 20 = " + resultado)
+    }
+
+    fn Somar(a: int, b: int): int {
+        return a + b
+    }
+} 

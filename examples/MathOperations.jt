@@ -1,0 +1,113 @@
+// Advanced mathematical operations example
+import "math"
+import "io"
+
+class MathOperations {
+    fn Main(): void {
+        // Operações básicas
+        var a: int = 10
+        var b: int = 5
+        
+        print("Soma: " + (a + b))
+        print("Subtração: " + (a - b))
+        print("Multiplicação: " + (a * b))
+        print("Divisão: " + (a / b))
+        print("Resto: " + (a % b))
+        
+        // Operações com float
+        var x: float = 10.5
+        var y: float = 2.5
+        
+        print("\nOperações com float:")
+        print("Soma: " + (x + y))
+        print("Subtração: " + (x - y))
+        print("Multiplicação: " + (x * y))
+        print("Divisão: " + (x / y))
+        
+        // Operações de comparação
+        print("\nOperações de comparação:")
+        print("a > b: " + (a > b))
+        print("a < b: " + (a < b))
+        print("a == b: " + (a == b))
+        print("a != b: " + (a != b))
+        
+        // Operações lógicas
+        var verdadeiro: bool = true
+        var falso: bool = false
+        
+        print("\nOperações lógicas:")
+        print("E: " + (verdadeiro && falso))
+        print("OU: " + (verdadeiro || falso))
+        print("NÃO: " + (!verdadeiro))
+    }
+
+    fn trigonometry() : void {
+        // Using PI constant
+        angle = math.PI / 4  // 45 degrees
+
+        // Trigonometric functions
+        sinValue = math.sin(angle)
+        cosValue = math.cos(angle)
+        tanValue = math.tan(angle)
+
+        io.println("For angle {angle} radians:")
+        io.println("sin: {sinValue}")
+        io.println("cos: {cosValue}")
+        io.println("tan: {tanValue}")
+    }
+
+    fn powerAndRoot() : void {
+        // Square root
+        number = 16
+        root = math.sqrt(number)
+        io.println("Square root of {number}: {root}")
+
+        // Power
+        base = 2
+        exponent = 8
+        result = math.pow(base, exponent)
+        io.println("{base} raised to {exponent}: {result}")
+    }
+
+    fn statistics() : void {
+        numbers = [12, 45, 23, 67, 89, 34, 21]
+        
+        // Find maximum
+        max = numbers[0]
+        for num in numbers {
+            max = math.max(max, num)
+        }
+        io.println("Maximum: {max}")
+
+        // Find minimum
+        min = numbers[0]
+        for num in numbers {
+            min = math.min(min, num)
+        }
+        io.println("Minimum: {min}")
+
+        // Calculate average
+        sum = 0
+        for num in numbers {
+            sum = sum + num
+        }
+        average = sum / numbers.length()
+        io.println("Average: {average}")
+    }
+}
+
+// Create instance
+calculator = new MathOperations {}
+
+// Run demonstrations
+io.println("=== Basic Operations ===")
+call calculator.Main()
+
+io.println("\n=== Trigonometry ===")
+call calculator.trigonometry()
+
+io.println("\n=== Power and Root ===")
+call calculator.powerAndRoot()
+
+io.println("\n=== Statistics ===")
+call calculator.statistics() 

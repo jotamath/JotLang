@@ -1,0 +1,85 @@
+class ContaBancaria {
+    prop string Titular
+    prop string Numero
+    prop float Saldo
+
+    fn Depositar(valor: float): void {
+        if valor > 0 {
+            this.Saldo = this.Saldo + valor
+            print("Depósito de " + valor + " realizado com sucesso")
+            print("Novo saldo: " + this.Saldo)
+        } else {
+            print("Valor de depósito inválido")
+        }
+    }
+
+    fn Sacar(valor: float): bool {
+        if valor > 0 && valor <= this.Saldo {
+            this.Saldo = this.Saldo - valor
+            print("Saque de " + valor + " realizado com sucesso")
+            print("Novo saldo: " + this.Saldo)
+            return true
+        } else {
+            print("Saldo insuficiente ou valor inválido")
+            return false
+        }
+    }
+
+    fn ConsultarSaldo(): float {
+        print("Saldo atual: " + this.Saldo)
+        return this.Saldo
+    }
+}
+
+class Banco {
+    prop string Nome
+    prop map[string]ContaBancaria Contas
+
+    fn CriarConta(titular: string, numero: string): ContaBancaria {
+        var conta: ContaBancaria = new ContaBancaria()
+        conta.Titular = titular
+        conta.Numero = numero
+        conta.Saldo = 0.0
+        this.Contas[numero] = conta
+        print("Conta criada com sucesso para " + titular)
+        return conta
+    }
+
+    fn BuscarConta(numero: string): ContaBancaria {
+        return this.Contas[numero]
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var banco: Banco = new Banco()
+        banco.Nome = "Banco JotLang"
+
+        // Criando contas
+        var conta1: ContaBancaria = banco.CriarConta("João Silva", "1001")
+        var conta2: ContaBancaria = banco.CriarConta("Maria Santos", "1002")
+
+        // Realizando operações
+        conta1.Depositar(1000.0)
+        conta1.Sacar(300.0)
+        conta1.ConsultarSaldo()
+
+        conta2.Depositar(500.0)
+        conta2.Sacar(700.0)  // Deve falhar
+        conta2.ConsultarSaldo()
+
+        // Transferência entre contas
+        var valorTransferencia: float = 200.0
+        if conta1.Sacar(valorTransferencia) {
+            conta2.Depositar(valorTransferencia)
+            print("Transferência realizada com sucesso")
+        } else {
+            print("Falha na transferência")
+        }
+
+        // Consultando saldos finais
+        print("\nSaldos finais:")
+        print("Conta " + conta1.Numero + " (" + conta1.Titular + "): " + conta1.ConsultarSaldo())
+        print("Conta " + conta2.Numero + " (" + conta2.Titular + "): " + conta2.ConsultarSaldo())
+    }
+} 

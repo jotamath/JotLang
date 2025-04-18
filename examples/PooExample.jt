@@ -1,0 +1,77 @@
+// =============================
+// PooExample.jt
+// =============================
+
+class Pessoa {
+    prop nome: string
+    prop idade: int
+
+    fn Saudar() : string {
+        return "Olá, meu nome é {nome} e tenho {idade} anos!"
+    }
+}
+
+@crud
+class Usuario {
+    prop id: int
+    prop email: string
+    prop senha: string
+}
+
+@httpget("/api/hello")
+fn SayHello() : string {
+    return "Bem-vindo ao Jot!"
+}
+
+class Animal {
+    prop string Nome
+    prop int Idade
+    
+    fn EmitirSom(): void {
+        print("Som genérico de animal")
+    }
+}
+
+class Cachorro extends Animal {
+    fn EmitirSom(): void {
+        print("Au au!")
+    }
+    
+    fn Latir(): void {
+        print("Latindo...")
+    }
+}
+
+class Gato extends Animal {
+    fn EmitirSom(): void {
+        print("Miau!")
+    }
+    
+    fn Ronronar(): void {
+        print("Ronronando...")
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var cachorro: Cachorro = new Cachorro()
+        cachorro.Nome = "Rex"
+        cachorro.Idade = 3
+        
+        var gato: Gato = new Gato()
+        gato.Nome = "Mingau"
+        gato.Idade = 2
+        
+        print("Cachorro:")
+        print("Nome: " + cachorro.Nome)
+        print("Idade: " + cachorro.Idade)
+        cachorro.EmitirSom()
+        cachorro.Latir()
+        
+        print("\nGato:")
+        print("Nome: " + gato.Nome)
+        print("Idade: " + gato.Idade)
+        gato.EmitirSom()
+        gato.Ronronar()
+    }
+}

@@ -1,0 +1,47 @@
+// Importar módulos necessários
+import "http"
+import "io"
+import "math"
+
+// API de calculadora
+class CalculadoraApi {
+    fn Somar(req: Request): Response {
+        var a: float = float.Parse(req.Query["a"])
+        var b: float = float.Parse(req.Query["b"])
+        
+        var resultado: float = a + b
+        
+        var resp: Response = new Response()
+        resp.StatusCode = 200
+        resp.Body = "{\"resultado\": " + resultado + "}"
+        
+        return resp
+    }
+    
+    fn RaizQuadrada(req: Request): Response {
+        var numero: float = float.Parse(req.Query["numero"])
+        
+        var resultado: float = math.Sqrt(numero)
+        
+        var resp: Response = new Response()
+        resp.StatusCode = 200
+        resp.Body = "{\"resultado\": " + resultado + "}"
+        
+        return resp
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var servidor: Server = new Server()
+        servidor.Port = 8080
+        
+        var api: CalculadoraApi = new CalculadoraApi()
+        
+        servidor.AddRoute("/somar", api.Somar)
+        servidor.AddRoute("/raiz", api.RaizQuadrada)
+        
+        print("Servidor iniciado na porta 8080...")
+        servidor.Start()
+    }
+} 

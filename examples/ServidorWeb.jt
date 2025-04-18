@@ -1,0 +1,101 @@
+class ServidorWeb {
+    prop Server Servidor
+    prop Database Banco
+    prop WSServer WebSocket
+
+    fn Inicializar(): void {
+        // Configurando servidor HTTP
+        this.Servidor = new Server()
+        this.Servidor.Host = "localhost"
+        this.Servidor.Port = 8080
+
+        // Configurando WebSocket
+        this.WebSocket = new WSServer()
+        this.WebSocket.Host = "localhost"
+        this.WebSocket.Port = 8081
+
+        // Configurando banco de dados
+        this.Banco = new Database()
+        this.Banco.ConnectionString = "postgres://localhost:5432/jotlang"
+    }
+
+    fn ConfigurarRotas(): void {
+        // Rota para página inicial
+        this.Servidor.AddRoute("/", fn(req: Request, res: Response): void {
+            res.Send(200, "Bem-vindo ao Servidor JotLang!")
+        })
+
+        // Rota para listar usuários
+        this.Servidor.AddRoute("/usuarios", fn(req: Request, res: Response): void {
+            if req.Method == "GET" {
+                var usuarios: string = this.Banco.Query("SELECT * FROM usuarios")
+                res.Send(200, usuarios)
+            } else {
+                res.Send(405, "Método não permitido")
+            }
+        })
+
+        // Rota para criar usuário
+        this.Servidor.AddRoute("/usuarios/novo", fn(req: Request, res: Response): void {
+            if req.Method == "POST" {
+                var nome: string = req.Body["nome"]
+                var email: string = req.Body["email"]
+                
+                this.Banco.Execute("INSERT INTO usuarios (nome, email) VALUES (?, ?)", nome, email)
+                res.Send(201, "Usuário criado com sucesso")
+                
+                // Notificar clientes WebSocket
+                this.NotificarClientes("Novo usuário cadastrado: " + nome)
+            } else {
+                res.Send(405, "Método não permitido")
+            }
+        })
+    }
+
+    fn NotificarClientes(mensagem: string): void {
+        for var conexao: Connection in this.WebSocket.Connections {
+            if conexao.IsOpen {
+                conexao.Send(mensagem)
+            }
+        }
+    }
+
+    fn Iniciar(): void {
+        // Conectar ao banco de dados
+        this.Banco.Connect()
+        print("Conectado ao banco de dados")
+
+        // Configurar manipuladores de WebSocket
+        this.WebSocket.OnConnection = fn(conn: Connection): void {
+            print("Nova conexão WebSocket: " + conn.Id)
+            conn.OnMessage = fn(msg: string): void {
+                print("Mensagem recebida: " + msg)
+                this.NotificarClientes("Mensagem recebida: " + msg)
+            }
+        }
+
+        // Iniciar servidores
+        this.WebSocket.Start()
+        print("Servidor WebSocket iniciado em " + this.WebSocket.Host + ":" + this.WebSocket.Port)
+
+        this.Servidor.Start()
+        print("Servidor HTTP iniciado em " + this.Servidor.Host + ":" + this.Servidor.Port)
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var servidor: ServidorWeb = new ServidorWeb()
+        
+        print("Inicializando servidor...")
+        servidor.Inicializar()
+        
+        print("Configurando rotas...")
+        servidor.ConfigurarRotas()
+        
+        print("Iniciando servidor...")
+        servidor.Iniciar()
+        
+        print("Servidor pronto para receber conexões!")
+    }
+} 

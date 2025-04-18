@@ -1,18 +1,4 @@
-import System
+// Programa Hello World em JotLang
+print("Olá, mundo!")
 
-module HelloWorld
 
-    class Program {
-        fn Main() {
-            var names = new list<string> { "Alice", "Bob", "Charlie" }
-            
-            foreach name in names {
-                print("Olá, {name}!")
-            }
-            
-            var sum = Soma(10, 20)
-            print("Soma: {sum}")
-        }
-        
-        fn Soma(a: int, b: int) => int = a + b
-    } 

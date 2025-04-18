@@ -1,0 +1,52 @@
+// Aplicação web de exemplo
+class WebApp {
+    prop Server Server
+    prop LoggerMiddleware Logger
+    
+    fn New(): void {
+        this.Server = new Server()
+        this.Server.Host = "localhost"
+        this.Server.Port = 8080
+        
+        this.Logger = new LoggerMiddleware("app.log", true, "DEBUG")
+    }
+    
+    fn ConfigurarRotas(): void {
+        // Rota principal
+        this.Server.AddRoute("/", fn(req: Request): Response {
+            var resp: Response = new Response()
+            resp.StatusCode = 200
+            resp.Body = "{\"mensagem\": \"Bem-vindo à API\"}"
+            return resp
+        })
+        
+        // Rota de usuários
+        this.Server.AddRoute("/usuarios", fn(req: Request): Response {
+            var resp: Response = new Response()
+            resp.StatusCode = 200
+            resp.Body = "{\"usuarios\": []}"
+            return resp
+        })
+        
+        // Rota de produtos
+        this.Server.AddRoute("/produtos", fn(req: Request): Response {
+            var resp: Response = new Response()
+            resp.StatusCode = 200
+            resp.Body = "{\"produtos\": []}"
+            return resp
+        })
+    }
+    
+    fn Iniciar(): void {
+        this.ConfigurarRotas()
+        this.Server.Start()
+        this.Logger.Info("Aplicação web iniciada em " + this.Server.Host + ":" + this.Server.Port)
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var app: WebApp = new WebApp()
+        app.Iniciar()
+    }
+} 

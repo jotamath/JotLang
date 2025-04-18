@@ -1,0 +1,44 @@
+// Exemplo de uso de arrays e hashes
+class ArrayHashExample {
+   fn Main() {
+        // Array de números
+        var numbers = [1, 2, 3, 4, 5];
+        print("Array de números: " + numbers);
+        print("Primeiro elemento: " + first(numbers));
+        print("Último elemento: " + last(numbers));
+        print("Tamanho do array: " + len(numbers));
+        
+        // Array de strings
+        var fruits = ["maçã", "banana", "laranja"];
+        print("\nArray de frutas: " + fruits);
+        print("Primeira fruta: " + first(fruits));
+        print("Última fruta: " + last(fruits));
+        
+        // Hash de pessoas
+        var person = {
+            "nome": "João",
+            "idade": 30,
+            "cidade": "São Paulo"
+        };
+        print("\nHash de pessoa: " + person);
+        print("Nome: " + person["nome"]);
+        print("Idade: " + person["idade"]);
+        print("Cidade: " + person["cidade"]);
+        
+        // Operações com arrays
+        var newNumbers = push(numbers, 6);
+        print("\nNovo array após push: " + newNumbers);
+        var restNumbers = rest(newNumbers);
+        print("Array após rest: " + restNumbers);
+        
+        // Acesso por índice
+        print("\nAcesso por índice:");
+        print("numbers[0]: " + numbers[0]);
+        print("numbers[2]: " + numbers[2]);
+        print("fruits[1]: " + fruits[1]);
+    }
+}
+
+// Criar instância e chamar Main
+var example = new ArrayHashExample();
+example.Main(); 

@@ -1,92 +1,136 @@
-@dto EnderecoDTO {
-    prop cep: string @required @pattern("^\\d{5}-\\d{3}$")
-    prop rua: string @required @min(3)
-    prop numero: string @required
-    prop complemento: string
-    prop bairro: string @required
-    prop cidade: string @required
-    prop estado: string @required @length(2)
+// =============================
+// Validation.jt
+// =============================
+class Endereco {
+    prop string Cep
+    prop string Logradouro
+    prop string Numero
+    prop string Complemento
+    prop string Bairro
+    prop string Cidade
+    prop string Estado
+    
+    fn New(): void {
+        this.Cep = ""
+        this.Logradouro = ""
+        this.Numero = ""
+        this.Complemento = ""
+        this.Bairro = ""
+        this.Cidade = ""
+        this.Estado = ""
+    }
 }
 
-@dto ClienteDTO {
-    prop id: guid
-    prop nome: string @required @min(3)
-    prop email: string @required @email
-    prop cpf: string @required @pattern("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$")
-    prop telefone: string @required @phone
-    prop dataNascimento: datetime @required
-    prop endereco: EnderecoDTO @required
+class Cliente {
+    prop string Nome
+    prop string Cpf
+    prop int Idade
+    prop Endereco Endereco
+    
+    fn New(): void {
+        this.Endereco = new Endereco()
+    }
 }
 
-@validator CpfValidator {
-    fn Validate(string cpf) => bool {
-        if (string.IsNullOrEmpty(cpf)) {
-            return false
-        }
-        
+class CpfValidator {
+    fn Validar(cpf: string): bool {
+        // Remove caracteres não numéricos
         cpf = cpf.Replace(".", "").Replace("-", "")
         
-        if (cpf.Length != 11) {
+        // Verifica se tem 11 dígitos
+        if cpf.Length != 11 {
             return false
         }
         
-        if (cpf.Distinct().Count() == 1) {
+        // Verifica se todos os dígitos são iguais
+        var todosIguais: bool = true
+        for var i: int = 1; i < cpf.Length; i++ {
+            if cpf[i] != cpf[0] {
+                todosIguais = false
+                break
+            }
+        }
+        if todosIguais {
             return false
         }
         
-        var soma = 0
-        for (var i = 0; i < 9; i++) {
-            soma += int.Parse(cpf[i].ToString()) * (10 - i)
-        }
-        
-        var resto = soma % 11
-        var digito1 = resto < 2 ? 0 : 11 - resto
-        
-        if (int.Parse(cpf[9].ToString()) != digito1) {
-            return false
-        }
-        
-        soma = 0
-        for (var i = 0; i < 10; i++) {
-            soma += int.Parse(cpf[i].ToString()) * (11 - i)
-        }
-        
-        resto = soma % 11
-        var digito2 = resto < 2 ? 0 : 11 - resto
-        
-        return int.Parse(cpf[10].ToString()) == digito2
+        // Validação básica do CPF
+        return true
     }
 }
 
-@validator IdadeValidator {
-    fn Validate(datetime dataNascimento) => bool {
-        var idade = DateTime.Now.Year - dataNascimento.Year
-        if (DateTime.Now.DayOfYear < dataNascimento.DayOfYear) {
-            idade--
-        }
-        return idade >= 18
+class IdadeValidator {
+    fn Validar(idade: int): bool {
+        return idade >= 18 && idade <= 120
     }
 }
 
-@httpPost("/api/clientes")
-fn CreateCliente(ClienteDTO cliente) => ClienteDTO {
-    if (!cliente.IsValid()) {
-        throw new ValidationException("Dados inválidos")
+class ClienteController {
+    prop CpfValidator CpfValidator
+    prop IdadeValidator IdadeValidator
+    
+    fn New(): void {
+        this.CpfValidator = new CpfValidator()
+        this.IdadeValidator = new IdadeValidator()
     }
     
-    var cpfValidator = new CpfValidator()
-    if (!cpfValidator.Validate(cliente.Cpf)) {
-        throw new ValidationException("CPF inválido")
+    fn CriarCliente(cliente: Cliente): map[string]string {
+        if !this.CpfValidator.Validar(cliente.Cpf) {
+            return {
+                "sucesso": "false",
+                "mensagem": "CPF inválido"
+            }
+        }
+        
+        if !this.IdadeValidator.Validar(cliente.Idade) {
+            return {
+                "sucesso": "false",
+                "mensagem": "Idade inválida"
+            }
+        }
+        
+        // Simulação de criação do cliente
+        return {
+            "sucesso": "true",
+            "mensagem": "Cliente criado com sucesso"
+        }
     }
-    
-    var idadeValidator = new IdadeValidator()
-    if (!idadeValidator.Validate(cliente.DataNascimento)) {
-        throw new ValidationException("Cliente deve ser maior de idade")
+}
+
+class Programa {
+    fn Main(): void {
+        var controller: ClienteController = new ClienteController()
+        
+        // Criando um endereço
+        var endereco: Endereco = new Endereco()
+        endereco.Cep = "12345-678"
+        endereco.Logradouro = "Rua Teste"
+        endereco.Numero = "123"
+        endereco.Bairro = "Centro"
+        endereco.Cidade = "São Paulo"
+        endereco.Estado = "SP"
+        
+        // Criando um cliente
+        var cliente: Cliente = new Cliente()
+        cliente.Nome = "João Silva"
+        cliente.Cpf = "123.456.789-00"
+        cliente.Idade = 25
+        cliente.Endereco = endereco
+        
+        // Tentando criar o cliente
+        var resultado: map[string]string = controller.CriarCliente(cliente)
+        print("Resultado: " + resultado["mensagem"])
+        
+        // Testando com CPF inválido
+        cliente.Cpf = "111.111.111-11"
+        resultado = controller.CriarCliente(cliente)
+        print("Resultado com CPF inválido: " + resultado["mensagem"])
+        
+        // Testando com idade inválida
+        cliente.Cpf = "123.456.789-00"
+        cliente.Idade = 15
+        resultado = controller.CriarCliente(cliente)
+        print("Resultado com idade inválida: " + resultado["mensagem"])
     }
-    
-    var novoCliente = new Cliente(cliente)
-    db.Clientes.Add(novoCliente)
-    db.SaveChanges()
-    
-    return new ClienteDTO(novoCliente)
-} 
+}
+

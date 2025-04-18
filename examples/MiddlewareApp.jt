@@ -1,0 +1,103 @@
+// =============================
+// MiddlewareApp.jt
+// =============================
+module MiddlewareApi
+
+class ErrorResponse {
+    prop string Mensagem
+    prop string StackTrace
+    prop string Timestamp
+    
+    fn New(mensagem: string, stackTrace: string): void {
+        this.Mensagem = mensagem
+        this.StackTrace = stackTrace
+        this.Timestamp = DateTime.Now.ToString()
+    }
+}
+
+class RequestLoggingMiddleware {
+    prop RequestDelegate Next
+    prop ILogger Logger
+    
+    fn New(next: RequestDelegate, logger: ILogger): void {
+        this.Next = next
+        this.Logger = logger
+    }
+    
+    fn InvokeAsync(context: HttpContext): void {
+        var inicio: DateTime = DateTime.Now
+        this.Logger.LogInformation("Iniciando processamento da requisição: " + context.Request.Path)
+        
+        this.Next(context)
+        
+        var duracao: TimeSpan = DateTime.Now - inicio
+        this.Logger.LogInformation("Requisição processada em " + duracao.Milliseconds + "ms")
+    }
+}
+
+class GlobalExceptionMiddleware {
+    prop RequestDelegate Next
+    prop ILogger Logger
+    
+    fn New(next: RequestDelegate, logger: ILogger): void {
+        this.Next = next
+        this.Logger = logger
+    }
+    
+    fn InvokeAsync(context: HttpContext): void {
+        try {
+            this.Next(context)
+        } catch var ex: Exception {
+            this.Logger.LogError("Erro não tratado: " + ex.Message)
+            
+            var response: ErrorResponse = new ErrorResponse(
+                "Ocorreu um erro interno no servidor",
+                ex.StackTrace
+            )
+            
+            context.Response.StatusCode = 500
+            context.Response.WriteAsJson(response)
+        }
+    }
+}
+
+class TestController {
+    prop ILogger Logger
+    
+    fn New(logger: ILogger): void {
+        this.Logger = logger
+    }
+    
+    fn TriggerError(): void {
+        throw new Exception("Erro de teste")
+    }
+    
+    fn TestPerformance(): string {
+        Thread.Sleep(100)
+        return "Operação concluída"
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var logger: ILogger = new ConsoleLogger()
+        
+        // Configurando middlewares
+        var app: WebApplication = new WebApplication()
+        app.UseMiddleware(new RequestLoggingMiddleware(app.Next, logger))
+        app.UseMiddleware(new GlobalExceptionMiddleware(app.Next, logger))
+        
+        // Testando logging
+        var controller: TestController = new TestController(logger)
+        var resultado: string = controller.TestPerformance()
+        print("Resultado: " + resultado)
+        
+        // Testando tratamento de erro
+        try {
+            controller.TriggerError()
+        } catch var ex: Exception {
+            print("Erro capturado: " + ex.Message)
+        }
+    }
+}
+

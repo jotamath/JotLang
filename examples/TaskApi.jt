@@ -1,0 +1,129 @@
+// Task Management API example
+import "http"
+import "io"
+
+class Tarefa {
+    prop int Id
+    prop string Titulo
+    prop string Descricao
+    prop bool Concluida
+    prop string DataCriacao
+    prop string DataConclusao
+}
+
+class TaskApi {
+    prop map[int]Tarefa Tarefas
+    prop int ProximoId
+    
+    fn New(): void {
+        this.Tarefas = map[int]Tarefa{}
+        this.ProximoId = 1
+    }
+    
+    fn CriarTarefa(titulo: string, descricao: string): Tarefa {
+        var tarefa: Tarefa = new Tarefa()
+        tarefa.Id = this.ProximoId
+        tarefa.Titulo = titulo
+        tarefa.Descricao = descricao
+        tarefa.Concluida = false
+        tarefa.DataCriacao = DateTime.Now.ToString()
+        
+        this.Tarefas[this.ProximoId] = tarefa
+        this.ProximoId++
+        
+        return tarefa
+    }
+    
+    fn ObterTarefa(id: int): Tarefa {
+        return this.Tarefas[id]
+    }
+    
+    fn AtualizarTarefa(id: int, titulo: string, descricao: string): Tarefa {
+        var tarefa: Tarefa = this.Tarefas[id]
+        tarefa.Titulo = titulo
+        tarefa.Descricao = descricao
+        return tarefa
+    }
+    
+    fn ConcluirTarefa(id: int): Tarefa {
+        var tarefa: Tarefa = this.Tarefas[id]
+        tarefa.Concluida = true
+        tarefa.DataConclusao = DateTime.Now.ToString()
+        return tarefa
+    }
+    
+    fn DeletarTarefa(id: int): void {
+        delete this.Tarefas[id]
+    }
+    
+    fn ListarTarefas(): map[int]Tarefa {
+        return this.Tarefas
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var api: TaskApi = new TaskApi()
+        
+        // Criar tarefas
+        var tarefa1: Tarefa = api.CriarTarefa("Estudar JotLang", "Aprender a sintaxe básica")
+        var tarefa2: Tarefa = api.CriarTarefa("Fazer exercícios", "Praticar com exemplos")
+        
+        // Listar tarefas
+        print("Tarefas criadas:")
+        for var id: int, var tarefa: Tarefa in api.ListarTarefas() {
+            print("ID: " + id)
+            print("Título: " + tarefa.Titulo)
+            print("Descrição: " + tarefa.Descricao)
+            print("Concluída: " + tarefa.Concluida)
+            print("---")
+        }
+        
+        // Atualizar tarefa
+        api.AtualizarTarefa(1, "Estudar JotLang Avançado", "Aprender recursos avançados")
+        
+        // Concluir tarefa
+        api.ConcluirTarefa(2)
+        
+        // Deletar tarefa
+        api.DeletarTarefa(1)
+        
+        // Listar tarefas atualizadas
+        print("\nTarefas atualizadas:")
+        for var id: int, var tarefa: Tarefa in api.ListarTarefas() {
+            print("ID: " + id)
+            print("Título: " + tarefa.Titulo)
+            print("Descrição: " + tarefa.Descricao)
+            print("Concluída: " + tarefa.Concluida)
+            print("---")
+        }
+    }
+}
+
+// Create server instance
+server = new http.Server {
+    Port = 8080,
+    Routes = {}
+}
+
+// Create API instance
+api = new TaskApi {
+    Tarefas = {}
+}
+
+// Configure routes
+server.get("/tasks", api.getAll)
+server.get("/tasks/:id", api.getById)
+server.post("/tasks", api.create)
+server.put("/tasks/:id", api.update)
+server.delete("/tasks/:id", api.delete)
+
+// Start server
+io.println("Task Management API started on port 8080...")
+io.println("Available endpoints:")
+io.println("- GET    /tasks")
+io.println("- GET    /tasks/:id")
+io.println("- POST   /tasks")
+io.println("- PUT    /tasks/:id")
+io.println("- DELETE /tasks/:id")
+call server.listen() 

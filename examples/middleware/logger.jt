@@ -1,0 +1,89 @@
+// Middleware de Logging
+class LoggerMiddleware {
+    prop string LogFile
+    prop bool ConsoleOutput
+    prop string LogLevel
+    
+    fn New(logFile: string, consoleOutput: bool, logLevel: string): void {
+        this.LogFile = logFile
+        this.ConsoleOutput = consoleOutput
+        this.LogLevel = logLevel
+    }
+    
+    fn FormatarLog(nivel: string, mensagem: string): string {
+        var data: string = DateTime.Now.ToString()
+        return "[" + data + "] [" + nivel + "] " + mensagem
+    }
+    
+    fn EscreverLog(mensagem: string): void {
+        var logFormatado: string = this.FormatarLog(this.LogLevel, mensagem)
+        
+        if this.ConsoleOutput {
+            print(logFormatado)
+        }
+        
+        var io: IO = new IO()
+        io.AppendFile(this.LogFile, logFormatado + "\n")
+    }
+    
+    fn Debug(mensagem: string): void {
+        if this.LogLevel == "DEBUG" {
+            this.EscreverLog(mensagem)
+        }
+    }
+    
+    fn Info(mensagem: string): void {
+        if this.LogLevel == "DEBUG" || this.LogLevel == "INFO" {
+            this.EscreverLog(mensagem)
+        }
+    }
+    
+    fn Warn(mensagem: string): void {
+        if this.LogLevel == "DEBUG" || this.LogLevel == "INFO" || this.LogLevel == "WARN" {
+            this.EscreverLog(mensagem)
+        }
+    }
+    
+    fn Error(mensagem: string): void {
+        this.EscreverLog(mensagem)
+    }
+    
+    fn Handle(req: Request, next: Function): Response {
+        var inicio: int = DateTime.Now.Millisecond
+        
+        this.Info("Requisição recebida: " + req.Method + " " + req.Path)
+        
+        var resp: Response = next(req)
+        
+        var duracao: int = DateTime.Now.Millisecond - inicio
+        this.Info("Resposta enviada: " + resp.StatusCode + " (" + duracao + "ms)")
+        
+        return resp
+    }
+}
+
+class Programa {
+    fn Main(): void {
+        var logger: LoggerMiddleware = new LoggerMiddleware("app.log", true, "DEBUG")
+        
+        // Exemplos de logs
+        logger.Debug("Mensagem de debug")
+        logger.Info("Mensagem informativa")
+        logger.Warn("Aviso importante")
+        logger.Error("Erro crítico")
+        
+        // Exemplo de uso com requisição HTTP
+        var req: Request = new Request()
+        req.Method = "GET"
+        req.Path = "/api/teste"
+        
+        var resp: Response = logger.Handle(req, fn(req: Request): Response {
+            var resp: Response = new Response()
+            resp.StatusCode = 200
+            resp.Body = "{\"mensagem\": \"Teste\"}"
+            return resp
+        })
+        
+        print("Resposta final: " + resp.StatusCode)
+    }
+} 
