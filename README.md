@@ -5,7 +5,7 @@ JotLang é uma linguagem de programação moderna e expressiva que transpila par
 ## ✨ Características Principais
 
 - 🎯 Sintaxe limpa e moderna
-- 🔄 Transpilação para C# (.NET 9.0)
+- 🔄 Interpretação em C# (.NET 9.0)
 - 🏗️ Suporte a Programação Orientada a Objetos
 - 📦 Sistema de módulos
 - 🎨 Suporte a decoradores
